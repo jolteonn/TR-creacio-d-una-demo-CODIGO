@@ -1,7 +1,12 @@
 local anim8 = require 'libraries/anim8/anim8'
-  player = {}
-    player.sprite = love.graphics.newImage('assets/player-sheet.png')
-    player.collider = world:newBSGRectangleCollider(600, 250, 40, 70, 12)
+
+--function loadPlayer()
+    player = {}
+    player.x = 300 
+    player.y = 200
+   -- collider_x = player.x
+--collider_y = player.y
+    player.collider = world:newBSGRectangleCollider(player.x, player.y, 40, 70, 12)
     player.collider:setFixedRotation(true)
     player.speed = 200
     player.sprite = love.graphics.newImage('assets/player-sheet.png')
@@ -12,7 +17,11 @@ local anim8 = require 'libraries/anim8/anim8'
     player.animations.right = anim8.newAnimation( player.grid('1-4', 3), 0.4)
     player.animations.up = anim8.newAnimation( player.grid('1-4', 4), 0.3)
     player.anim = player.animations.down
-  
+
+   -- return player
+
+
+--end
 
 
 function playerupdate(dt)
@@ -49,11 +58,13 @@ if isMoving == false then
 end
 
 player.collider:setLinearVelocity(vx, vy)
+
 player.x = player.collider:getX()
 player.y = player.collider:getY() 
 
 --player.collider:setLinearVelocity(vx, vy)
 player.anim:update(dt) 
+
 end
 
 
