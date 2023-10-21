@@ -69,20 +69,6 @@ function changeTurn()
 end
 
 
-function battleUpdate(dt)
-
-    ------DIALOGO BATALLA-------------
-if currentTurn == player then
-    turnTxt = 'PLAYER'
-elseif currentTurn == elf then
-    turnTxt = 'ELF'
-elseif currentTurn == enemy then
-    turnTxt = 'ENEMY'
-elseif  currentTurn == dragon then
-       turnTxt = 'DRAGON'
-end
----------------
-
 local alive = true
    
    if alive then
@@ -147,7 +133,6 @@ end
     tiempoAnteriorUp = tiempoActual
     end
 end
-end
 
     if love.keyboard.isDown("space") then
         if tiempoActual - tiempoAnteriorUp >= tiempoEsperaUp then
@@ -190,9 +175,9 @@ end
 
          
     end
- 
-    tiempoAnteriorUp = tiempoActual
+
 end
+tiempoAnteriorUp = tiempoActual
 end
 
 if enemy.health == 0 then
@@ -203,8 +188,6 @@ end
 
  
 function battleDraw()
-
-    
 
  love.graphics.print(turnTxt, 100)
     love.graphics.clear()
