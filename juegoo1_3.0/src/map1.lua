@@ -1,9 +1,5 @@
 local npcCreator = require "src/npc_creator"
 local mapis2 = false
---ghostST = 'ghost'
-
--- map1.lua
-solidST = 'solid'
 
  npc1 = world:newRectangleCollider(400, 300, 35, 60)
  enemy = world:newRectangleCollider(900, 300, 35, 60)
@@ -11,20 +7,18 @@ solidST = 'solid'
  
 pajaro = world:newRectangleCollider(200, 300, 36, 60)
 
-world:addCollisionClass(solidST)
+world:addCollisionClass('solid')
+world:addCollisionClass('ghost', {ignores = {'solid'}})
 world:addCollisionClass('c2')
 
-world:addCollisionClass('ghost', {ignores = {'solid'}})
 
 npc3 = world:newRectangleCollider(500, 600, 36, 60)
 npc3:setType('static')
-npc3:setCollisionClass(solidST)
 
+if game.state.map1 then
+ npc3:setCollisionClass('ghost')
 
---ultimo cambio: cambiar orden solid y ghost en add:collison. todos colliders ignoran collisones
-
-
---voidnpc = world:newRectangleCollider(500, 600, 36, 60)
+end
  
 
 
@@ -55,8 +49,6 @@ function drawMap2()
   love.graphics.clear()
   love.graphics.print('this is map 2', 300, 400)
   love.graphics.print("this is position 100", 100, 100)
-
- 
 end
 
 

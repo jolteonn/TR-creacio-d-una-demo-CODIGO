@@ -15,20 +15,14 @@ mapChange = require 'src/stateManager'
      player.collider:setCollisionClass('player')
      player.collider:setCollisionClass('solid')
      world:addCollisionClass("door")
-     
-    
 
-  
-    -- world:addCollisionClass('ghost', {ignores = {'solid'}})
      
      -----------------NPCS--------------------------
      world:addCollisionClass("npc")
      world:addCollisionClass("enemy")
      world:addCollisionClass("bird")
+     world:addCollisionClass("npc3")
     
-
-     local bird_ = false
-     local npc_ = false
     ------------------------------------------------
     
 
@@ -45,6 +39,7 @@ local alien_d3 = "holaesta es la pagina 33333333333"
 local bird_name = "bird"
 
 -----------------------------------------------------------------------
+
 local primero = "texto 1"
 local segundo = "texto 2"
 local tercero = "texto 3"
@@ -75,7 +70,6 @@ if player.collider:exit("npc") then
  end
 
  -------- cambios de mapa doors------
--- running.lua
  if player.collider:enter("door") then
   playerTeleported = true
    if playerTeleported then
@@ -88,27 +82,35 @@ if player.collider:exit("npc") then
   door1:destroy()
 end
 
-----
+---- ADD MAP2 COLLIDERS
 if player.collider:enter("door") then
   if map.state.map2 then
+
     solidST = 'solid'
+    npc3:setCollisionClass(solidST)
   end
 end
-------------------------------------
---chekif
+-----
+
+--CHEKIF---(DELETE LATER)
 if solidST == 'solid' then 
   textou = 'solidod'
 elseif solidST == 'ghost' then
   textou = 'ghosostos'
 end
---if player.collider:enter("")
+
+
 
 if player.collider:enter("enemy") then
-  npc1:destroy()
+  --DESTROY COLLIDERS MAPA ANTERIOR
+  enemy:destroy()
   door1:destroy()
+
   map:changeGameState("battle")
-  
+
 end
+
+
 
 if player.collider:enter("bird") then
   dialogEvent = true
@@ -126,17 +128,21 @@ if player.collider:exit("bird") then
   end
 
 
-end
+   if player.collider:enter("npc3") then
+    
+  
+    solidST = 'ghost'
+   end
+  end
 
 
 
 function drawRunning()
-  -----if maps
-  
+
 cam:attach()
 if map.state.map1 then
   drawMap1()
- -- npc3:destroy()
+
 elseif map.state.map2 then
   drawMap2()
  

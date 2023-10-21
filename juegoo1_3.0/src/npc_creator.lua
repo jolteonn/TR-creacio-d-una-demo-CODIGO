@@ -53,7 +53,7 @@ function dialog.new(box, name, text, text2, text3)
 
     return instance
 end
- --local box = love.graphics.newImage("boxx.png")
+
  local clicks = 0
 
  function dialog:show(x, y)
@@ -63,7 +63,6 @@ end
     love.graphics.push("all")    
     love.graphics.setColor(0, 0, 0, 255)
     love.graphics.print(self.text, 90, 486)
-    --love.graphics.print(clicks, 400, 0)
     love.graphics.print(self.name, 110, 455)
     love.graphics.pop()
    
@@ -89,17 +88,18 @@ local show0 = true
 
     function love.keypressed(key, scancode, isrepeat)
 
-
-     --if npcCollide then
      if dialogEvent then
        if key == 'e' then
          openDialog = true
          clicks = clicks + 1
        end
+
+  if game.state.running then --ultima modificacion
     if key == 'space' then
       clicks = clicks + 1
-          --show2 = true
+
      end
+    end
       
 
     if openDialog then
@@ -114,7 +114,7 @@ local show0 = true
       if clicks == 2 then
         show1 = false
         if show1 == false then
-            --show2 = true
+
             self.text = self.text2
         end
       end
@@ -190,7 +190,6 @@ function button:showw(x, y)
   local img = nil
   local img2 = nil
   local img3 = nil
-  --local in1 = 1
 
   local itpres = false
 
@@ -276,9 +275,12 @@ end
         end
            
     end
+
+
     
     if self.in1 == 2 and draw2 then
       drawArrow2()
+
     end
 
     if self.in1 == 2 and draw3 then
