@@ -1,3 +1,4 @@
+  
   love.graphics.setDefaultFilter("nearest", "nearest")
 
   math.randomseed( os.time() )
@@ -5,6 +6,10 @@
  globalVar = require 'globals'
  globalVariables = globalVar()
  world = wf.newWorld(0, 0)
+
+ finish = false
+
+ freeze = false
 
 function love.load()
    
@@ -28,6 +33,7 @@ end
 function love.update(dt)
 
 
+
  if game.state.running then
   updateRunning(dt)
   playerMove = true
@@ -41,6 +47,13 @@ end
 
  if map.state.battle then
   battleUpdate(dt)
+  freeze = true
+ else
+  freeze = false
+ end
+
+ if finish then
+  map:changeGameState('running')
  end
 
  collectgarbage("collect")
@@ -66,5 +79,9 @@ function love.draw()
     battleDraw()
     battleState = true
   end
+
+  --if finish then
+    --drawMap1()
+  --end
 
 end 

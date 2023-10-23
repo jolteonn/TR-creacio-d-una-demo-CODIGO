@@ -22,7 +22,7 @@ function playerupdate(dt)
     local vx = 0
     local vy = 0
 
-
+if freeze == false then
 if love.keyboard.isDown('d', 'right') then
     isMoving = true
     vx = player.speed
@@ -47,6 +47,7 @@ if love.keyboard.isDown('w', 'up') then
 end
 if isMoving == false then
     player.anim:gotoFrame(2)
+end
 end
 
 player.collider:setLinearVelocity(vx, vy)

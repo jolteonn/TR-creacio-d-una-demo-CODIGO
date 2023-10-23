@@ -3,6 +3,7 @@ playerTeleported = false
 
 local textou = 'txt'
 local map1 = require "src/map1"
+--local map2 = require 'maps/'
 local battle = require "src/battle"
 
 mapChange = require 'src/stateManager'
@@ -107,6 +108,7 @@ if player.collider:enter("enemy") then
   door1:destroy()
 
   map:changeGameState("battle")
+  --map:changeGameState('map1')
 
 end
 
@@ -146,6 +148,10 @@ if map.state.map1 then
 elseif map.state.map2 then
   drawMap2()
  
+end
+
+if finish then 
+  drawMap1()
 end
 
 dialog1:update()
