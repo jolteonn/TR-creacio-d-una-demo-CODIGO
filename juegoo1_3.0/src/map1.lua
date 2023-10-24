@@ -50,24 +50,23 @@ end
 
 function drawMap2()
 
-  local gameMap = sti ('Maps/Mapa_exterior_Cabana (1).lua')
+  --local gameMap = sti ('Maps/mapa_cabana_exterior2.lua')
 
-  local walls = {}
-  if gameMap.layers['walls'] then
-    for i, obj in pairs(gameMap.layers['walls'].objects) do
-  local wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
-  wall:setType('static')
-  table.insert(walls, wall)
-  end
-end
+ -- local walls = {}
+ -- if gameMap.layers['walls'] then
+ --   for i, obj in pairs(gameMap.layers['walls'].objects) do
+ -- local wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
+ -- wall:setType('static')
+ -- table.insert(walls, wall)
+ -- end
+--end
   love.graphics.clear()
-  gameMap:drawLayer(gameMap.layers["Capa de patrones 1"])
-  gameMap:drawLayer(gameMap.layers["Capa de patrones 6"])
-  gameMap:drawLayer(gameMap.layers["Capa de patrones 5"])
-  gameMap:drawLayer(gameMap.layers["Capa de patrones 3"])
-  gameMap:drawLayer(gameMap.layers["Cabana"])
-  gameMap:drawLayer(gameMap.layers["Capa de patrones 4"])
-  gameMap:drawLayer(gameMap.layers['Paredes'])
+  --gameMap:drawLayer(gameMap.layers['walls'])
+  --gameMap:drawLayer(gameMap.layers["Cabana"])
+  --gameMap:drawLayer(gameMap.layers["water"])
+  --gameMap:drawLayer(gameMap.layers["trees"])
+  --gameMap:drawLayer(gameMap.layers["trees1"])
+  --gameMap:drawLayer(gameMap.layers["grass"])
   love.graphics.print('this is map 2', 300, 400)
   love.graphics.print("this is position 100", 100, 100)
 end

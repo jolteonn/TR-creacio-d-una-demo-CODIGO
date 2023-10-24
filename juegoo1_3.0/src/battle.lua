@@ -78,6 +78,7 @@ local alive = true
    
    if alive then
     function battleUpdate(dt)
+    
         if start then
           timer = timer + 0.02
         end
@@ -99,7 +100,6 @@ end
     local tiempoActual = love.timer.getTime()
     if love.keyboard.isDown("space") then
         if tiempoActual - tiempoAnteriorUp >= tiempoEsperaUp then
-            local enAtacked = 'nil'
          local random1 = math.random(1, 3)
         -- Realizar el ataque actual
         if currentTurn == player then
@@ -122,6 +122,8 @@ end
             dragonAttack(player)
         end
 
+        
+      
         if currentTurn == elf and arrow1 then
             battleDialog = 'Isildur utilizo ataque1'
         end
@@ -144,7 +146,13 @@ end
             battleDialog = 'Drakkan utilizo ataque2'
         end
        if currentTurn == enemy then 
-        battaleDialog = 'enemigo atacó a ..'
+        if random1 == 1 then
+            battleDialog = 'enemigo ataco a Connor'
+        elseif random1 == 2 then
+            battleDialog = 'enemigo ataco a Isildur'
+        elseif random1 == 3 then
+            battleDialog = 'enemigo ataco a Drakkan'
+        end
        end
         -- Cambiar al siguiente turno
         changeTurn()

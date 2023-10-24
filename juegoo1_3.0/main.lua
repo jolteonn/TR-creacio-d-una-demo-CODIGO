@@ -17,6 +17,7 @@ function love.load()
     game = stateManager()
     menuState = require 'src/menu'
     runningState = require 'src/running'
+    sceneState = require 'src/scenes'
   defaultFont = love.graphics.newFont('assets/fonts/dogica/TTF/dogica.ttf', 10)
 
 camera = require 'libraries/camera'
@@ -32,7 +33,9 @@ end
    
 function love.update(dt)
 
-
+  if game.state.scene then
+    scene1Update(dt)
+   end
 
  if game.state.running then
   updateRunning(dt)
@@ -44,6 +47,8 @@ end
  if game.state.menu then
   updateMenu()
  end
+
+ 
 
  if map.state.battle then
   battleUpdate(dt)
@@ -80,6 +85,9 @@ function love.draw()
     battleState = true
   end
 
+  if game.state.scene then
+    scene1Draw()
+  end
   --if finish then
     --drawMap1()
   --end
