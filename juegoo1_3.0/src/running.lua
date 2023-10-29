@@ -23,6 +23,7 @@ mapChange = require 'src/stateManager'
      world:addCollisionClass("enemy")
      world:addCollisionClass("bird")
      world:addCollisionClass("npc3")
+     world:addCollisionClass("wall")
     
     ------------------------------------------------
     
@@ -51,7 +52,28 @@ local dialog1 = dialog.new(boxx, primero, segundo, tercero)
 
 local bird_d1 = "olaola aaaaaaaa"
 
+
+function checkCollisions(a, b)
+  local a_left = a.x
+  local a_right = a.x + a.width
+  local a_top = a.y
+  local a_bottom = a.y + a.height
+
+  local b_left = b.x
+  local b_right = b.x + b.width
+  local b_top = b.y
+  local b_bottom = b.y + b.height
+
+  return  a_right > b_left
+   and a_left < b_right
+   and a_bottom > b_top
+   and a_top < b_bottom
+end
+
+
+
 function updateRunning(dt)
+
 
 
     playerupdate(dt)
@@ -74,8 +96,8 @@ if player.collider:exit("npc") then
  if player.collider:enter("door") then
   playerTeleported = true
    if playerTeleported then
-     player.x = 100
-     player.y = 100
+     player.x = 250
+     player.y = 250
      player.collider:setPosition(player.x, player.y)
    end  
   map:changeGameState("map2")
@@ -89,6 +111,9 @@ if player.collider:enter("door") then
 
     solidST = 'solid'
     npc3:setCollisionClass(solidST)
+    wall:setCollisionClass(solidST)
+  elseif map.state.map1 then
+    solidST = 'ghost'
   end
 end
 -----
@@ -129,10 +154,11 @@ if player.collider:exit("bird") then
   bird_ = false
   end
 
-
+--eliminar
    if player.collider:enter("npc3") then
-    
-  
+    solidST = 'ghost'
+   end
+   if player.collider:enter("wall") then
     solidST = 'ghost'
    end
   end

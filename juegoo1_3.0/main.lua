@@ -7,12 +7,20 @@
  globalVariables = globalVar()
  world = wf.newWorld(0, 0)
 
+
+ --bump = require 'libraries/bump/bump'
+ --bump_debug = require 'libraries/bump_debug'
+
+-- b_world = bump.newWorld()
+
  finish = false
 
  freeze = false
 
+
+
 function love.load()
-   
+  sti = require 'libraries/simple'
     stateManager = require 'src/stateManager'
     game = stateManager()
     menuState = require 'src/menu'
@@ -21,7 +29,6 @@ function love.load()
   defaultFont = love.graphics.newFont('assets/fonts/dogica/TTF/dogica.ttf', 10)
 
 camera = require 'libraries/camera'
- sti = require 'libraries/simple'
 
 ----running state-------
 cam = camera()
@@ -29,6 +36,7 @@ cam = camera()
  npcCreator = require "src/npc_creator"
 
 end
+
 
    
 function love.update(dt)
@@ -39,10 +47,13 @@ function love.update(dt)
 
  if game.state.running then
   updateRunning(dt)
+  --collider:update(player.collider2, prueba)
   playerMove = true
  else
   playerMove = false
 end
+
+
  
  if game.state.menu then
   updateMenu()
@@ -78,6 +89,9 @@ function love.draw()
     
   if game.state.running then
     drawRunning()
+    love.graphics.print(player.x, 50, 50)
+    love.graphics.print(player.y, 50, 100)
+
   end
 
   if map.state.battle then

@@ -311,4 +311,75 @@ end
 
    love.graphics.print(self.in1, 400)
 end
-  
+
+
+
+collider = {
+  x = nil,
+  y = nil,
+  w = nil,
+  h = nil,
+  --showC = false,
+
+}
+
+collider.__index = collider
+
+function collider.new(x, y, w, h)
+  local instance = setmetatable({}, collider)
+  instance.x = x
+  instance.y = y
+  instance.w = w
+  instance.h = h
+ -- instance.showC = showC
+
+
+ -- instance.text3 = text3
+
+  return instance
+end
+
+function checkCollisions(a, b)
+  local a_left = a.x
+  local a_right = a.x + a.width
+  local a_top = a.y
+  local a_bottom = a.y + a.height
+
+  local b_left = b.x
+  local b_right = b.x + b.width
+  local b_top = b.y
+  local b_bottom = b.y + b.height
+
+  return  a_right > b_left
+   and a_left < b_right
+   and a_bottom > b_top
+   and a_top < b_bottom
+end
+
+
+
+function collider:update(a, b)
+  if checkCollisions(a, b) then
+    if love.keyboard.isDown('d') then
+      player.x = player.x - 3
+  elseif love.keyboard.isDown('a') then
+      player.x = player.x + 3
+  end
+
+  if love.keyboard.isDown('s') then
+      player.y = player.y - 3
+  elseif love.keyboard.isDown('w') then
+      player.y = player.y + 3
+  end
+end
+end
+
+
+function collider:draw()
+ -- if show then
+ --if self.showC then
+    love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
+ --end
+ -- end
+ -- if self.x = 
+end
