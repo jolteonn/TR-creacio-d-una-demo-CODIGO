@@ -74,7 +74,14 @@ end
 
 function updateRunning(dt)
 
-
+--updateRunning
+  for i, obj in pairs(gameMap2.layers['walls'].objects) do
+    local stateClass = 'solid'
+    wall:setCollisionClass(stateClass)
+    if game.state.map2 then
+      stateClass = 'ghost'
+      end
+    end
 
     playerupdate(dt)
   world:update(dt)
@@ -107,12 +114,12 @@ end
 
 ---- ADD MAP2 COLLIDERS
 if player.collider:enter("door") then
-  if map.state.map2 then
+  if map.state.map1 then
 
     solidST = 'solid'
     npc3:setCollisionClass(solidST)
-    wall:setCollisionClass(solidST)
-  elseif map.state.map1 then
+   -- wall:setCollisionClass(solidST)
+  elseif map.state.map2 then
     solidST = 'ghost'
   end
 end

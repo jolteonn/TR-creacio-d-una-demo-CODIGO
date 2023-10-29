@@ -21,7 +21,6 @@ world:addCollisionClass('c2')
     for i, obj in pairs(gameMap2.layers['walls'].objects) do
    wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
   wall:setType('static')
-  wall:setCollisionClass('ghost')
   table.insert(walls, wall)
  -- end
 end
@@ -42,35 +41,15 @@ npc3:setType('static')
 if game.state.map1 then
 
  npc3:setCollisionClass('ghost')
- wall:setCollisionClass('solid')
-elseif game.state.map2 then
-  wall:setCollisionClass('ghost') --si se elimina esto se hace solido siempre
+ --wall:setCollisionClass('solid')
+--elseif game.state.map2 then
+--  wall:setCollisionClass('ghost') --si se elimina esto se hace solido siempre
 end
  
-npc1:setType('static')
-door1:setType('static')
-enemy:setType('static')
 
 
+function drawMap2()
 
-function drawMap1()
-  
-  npc1:setFixedRotation(true)
-  npc1:setCollisionClass('npc')
-if finish == false then --- cosas q eliminar despues d la batalla
-  door1:setFixedRotation(true)
-  door1:setCollisionClass('door')
-
-  enemy:setFixedRotation(true)
-  enemy:setCollisionClass('enemy')
-
-
-end
-
-
-  pajaro:setType('static')
-  pajaro:setFixedRotation(true)
-  pajaro:setCollisionClass('bird')
 
    local gameMap = sti('Maps/TestMapp.lua')
     gameMap:drawLayer(gameMap.layers["ground"])
@@ -80,10 +59,27 @@ end
 end
 
 
-function drawMap2()
-
-
+function drawMap1()
   love.graphics.clear()
+
+  
+  npc1:setType('static')
+  door1:setType('static')
+  enemy:setType('static')
+  
+    npc1:setFixedRotation(true)
+    npc1:setCollisionClass('npc')  
+    door1:setFixedRotation(true)
+    door1:setCollisionClass('door')
+  
+    enemy:setFixedRotation(true)
+    enemy:setCollisionClass('enemy')
+  
+    
+    pajaro:setType('static')
+    pajaro:setFixedRotation(true)
+    pajaro:setCollisionClass('bird')
+    
 --  gameMap2:drawLayer(gameMap2.layers['walls'])
   gameMap2:drawLayer(gameMap2.layers["grass"])
   gameMap2:drawLayer(gameMap2.layers["Cabana"])
