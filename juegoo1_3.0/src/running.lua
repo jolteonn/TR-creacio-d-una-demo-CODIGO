@@ -3,11 +3,9 @@ playerTeleported = false
 
 local textou = 'txt'
 local map1 = require "src/map1"
---local map2 = require 'maps/'
 local battle = require "src/battle"
 
 mapChange = require 'src/stateManager'
- map = mapChange()
 
 
      require "src/player"
@@ -17,14 +15,44 @@ mapChange = require 'src/stateManager'
      player.collider:setCollisionClass('solid')
      world:addCollisionClass("door")
 
-     
+
+     local inmap = 'inmap1'
+     if game.state.map1 then
+      inmap = 'inmap1'
+      textt = 'in map 1'
+     elseif game.state.map2 then
+      inmap = 'inmap2'
+      textt = 'in map 2'
+     end
+
+    --  player.collider:setCollisionClass(inmap)
      -----------------NPCS--------------------------
+     -----classes---------------
      world:addCollisionClass("npc")
      world:addCollisionClass("enemy")
      world:addCollisionClass("bird")
      world:addCollisionClass("npc3")
      world:addCollisionClass("wall")
+
+    -----npc colliders----------------     
+    mp1 = {}
+    mp1.npc1 = world:newRectangleCollider(400, 300, 35, 60)
+    mp1.enemy = world:newRectangleCollider(900, 400, 35, 60)
+    mp1.door1 = world:newRectangleCollider(900, 1900, 400, 50)
+    mp1.npc3 = world:newRectangleCollider(500, 600, 36, 60)
+    mp1.npc3:setType('static')
+    mp1.pajaro = world:newRectangleCollider(200, 300, 36, 60)
     
+   -----set tipo y classe------
+
+   for key, collider in pairs(mp1) do
+    collider:setType('static')
+  end
+
+  mp1.npc1:setCollisionClass('npc')
+  mp1.enemy:setCollisionClass('enemy')
+  mp1.pajaro:setCollisionClass('bird')
+  mp1.door1:setCollisionClass('door')
     ------------------------------------------------
     
 
@@ -53,35 +81,11 @@ local dialog1 = dialog.new(boxx, primero, segundo, tercero)
 local bird_d1 = "olaola aaaaaaaa"
 
 
-function checkCollisions(a, b)
-  local a_left = a.x
-  local a_right = a.x + a.width
-  local a_top = a.y
-  local a_bottom = a.y + a.height
-
-  local b_left = b.x
-  local b_right = b.x + b.width
-  local b_top = b.y
-  local b_bottom = b.y + b.height
-
-  return  a_right > b_left
-   and a_left < b_right
-   and a_bottom > b_top
-   and a_top < b_bottom
-end
-
-
 
 function updateRunning(dt)
 
---updateRunning
-  for i, obj in pairs(gameMap2.layers['walls'].objects) do
-    local stateClass = 'solid'
-    wall:setCollisionClass(stateClass)
-    if game.state.map2 then
-      stateClass = 'ghost'
-      end
-    end
+
+
 
     playerupdate(dt)
   world:update(dt)
@@ -99,28 +103,34 @@ if player.collider:exit("npc") then
   onScreen = false
  end
 
- -------- cambios de mapa doors------
- if player.collider:enter("door") then
+ -------- cambios de mapa doors------ COLLIDER DESTROY
+ if player.collider:enter("door") then  
   playerTeleported = true
    if playerTeleported then
      player.x = 250
      player.y = 250
      player.collider:setPosition(player.x, player.y)
    end  
-  map:changeGameState("map2")
-  npc1:destroy()
-  door1:destroy()
+  map:changeGameState("map2")    
+  for key, collider in pairs(mp1) do
+    collider:destroy()
+end
+  for key, collider in pairs(cl) do
+    collider:destroy()
+end
 end
 
 ---- ADD MAP2 COLLIDERS
 if player.collider:enter("door") then
   if map.state.map1 then
-
-    solidST = 'solid'
-    npc3:setCollisionClass(solidST)
-   -- wall:setCollisionClass(solidST)
+   wallState = 'solid'
+    solidST = 'solid'   -- no tiene relevancia ?? npc3 funciona igual si es solid o ghost
+     mp1.npc3:setCollisionClass(solidST)
   elseif map.state.map2 then
+    wallState = 'ghost'
     solidST = 'ghost'
+     mp1.npc3:setCollisionClass(solidST)
+
   end
 end
 -----
@@ -136,8 +146,8 @@ end
 
 if player.collider:enter("enemy") then
   --DESTROY COLLIDERS MAPA ANTERIOR
-  enemy:destroy()
-  door1:destroy()
+  mp1.enemy:destroy()
+  mp1.door1:destroy()
 
   map:changeGameState("battle")
   --map:changeGameState('map1')
@@ -166,7 +176,7 @@ if player.collider:exit("bird") then
     solidST = 'ghost'
    end
    if player.collider:enter("wall") then
-    solidST = 'ghost'
+    wallState = 'ghost'
    end
   end
 

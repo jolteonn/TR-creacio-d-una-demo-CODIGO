@@ -13,7 +13,7 @@ function updateMenu(dt)
  -- button:update()
     if love.keyboard.isDown("space", "p") then
         if arrow1 then
-          game:changeGameState("running")
+          game:changeGameState("scene")
         end
         if arrow3 then
           love.event.quit()

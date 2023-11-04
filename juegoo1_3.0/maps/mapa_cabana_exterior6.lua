@@ -348,7 +348,7 @@ return {
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
-      properties = {},
+      properties = {property1 = false},
       objects = {
         {
           id = 77,

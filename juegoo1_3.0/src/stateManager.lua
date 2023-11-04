@@ -7,6 +7,7 @@ function gameSt()
             running = false,
             dialog = false,
             battle = false,
+            battle2 = false,
             video = false,
             scene = false,
 
@@ -19,6 +20,7 @@ function gameSt()
             self.state.running = state == 'running' 
             self.state.dialog = state == 'dialog'
             self.state.battle = state == 'battle'
+            self.state.battle2 = state == 'battle2'
             self.state.video = state == 'video'
             self.state.scene = state == 'scene'
 

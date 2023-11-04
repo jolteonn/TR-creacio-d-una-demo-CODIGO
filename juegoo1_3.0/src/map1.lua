@@ -1,85 +1,51 @@
 local npcCreator = require "src/npc_creator"
 local mapis2 = false
+--local gameState = require 'src/stateManager'
+--local map = stateManager()
+--local running = require 'src/running'
 
 gameMap2 = sti ('maps/mapa_cabana_exterior6.lua')
 
 
- npc1 = world:newRectangleCollider(400, 300, 35, 60)
- enemy = world:newRectangleCollider(900, 300, 35, 60)
- door1 = world:newRectangleCollider(820, 800, 200, 50)
-
-
-pajaro = world:newRectangleCollider(200, 300, 36, 60)
 
 world:addCollisionClass('solid')
 world:addCollisionClass('ghost', {ignores = {'solid'}})
 world:addCollisionClass('c2')
 
---if map.state.map2 then
-  local walls = {}
-  if gameMap2.layers['walls'] then
-    for i, obj in pairs(gameMap2.layers['walls'].objects) do
-   wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
-  wall:setType('static')
-  table.insert(walls, wall)
- -- end
-end
-end
 
+--WALL COLLIDERS MAP1
+cl = {}
+cl.pr1  = world:newRectangleCollider(442.424, 52.1212, 1307.03, 320.606)
+cl.pr2  = world:newRectangleCollider( 1093.94, 469.697, 184.848, 96.9697)
+cl.pr3  = world:newRectangleCollider( 133.576, 13.8182, 45.212, 168)
+cl.pr4  = world:newRectangleCollider(196.97, 7.6364, 227.273, 46.9091)
+cl.pr5  = world:newRectangleCollider(83.8788, 203.03, 43.394, 236.364)
+cl.pr6  = world:newRectangleCollider(101.818, 457.576, 89.091, 436.364)
+cl.pr7 = world:newRectangleCollider(203.03, 654.545, 63.6364, 236.364) --83
+cl.pr8 = world:newRectangleCollider(366.667, 1030.3, 181.818, 276.848)
+cl.pr9 = world:newRectangleCollider(564.606, 1308.12, 81.8182, 148.485)
+cl.pr10 = world:newRectangleCollider(572.727, 1472.73, 160.606, 111.394)
+cl.pr11 = world:newRectangleCollider(751.515, 1584.85, 51.5152, 327.273)
+cl.pr12 = world:newRectangleCollider(836.364, 1806.06, 51.5152, 112.121)
+cl.pr13 = world:newRectangleCollider(1742.42, 396.97, 45.576, 172.727)
+cl.pr14 = world:newRectangleCollider(1690.91, 581.818, 68.242, 375.758)--92
+cl.pr15 = world:newRectangleCollider(1318.18, 960.606, 376.97, 951.515)
+cl.pr16 = world:newRectangleCollider(1224.24, 969.697, 54.5455, 66.6667)
+cl.pr17 = world:newRectangleCollider( 1209.09, 1357.58, 72.7273, 69.697)
+cl.pr18 = world:newRectangleCollider(1254.55, 1730.3, 51.5152, 124.242)
+cl.pr19 = world:newRectangleCollider(763.636, 684.848, 178.788, 178.788)
+cl.pr20 = world:newRectangleCollider(763.636, 684.848, 178.788, 178.788)
+cl.pr21 = world:newRectangleCollider(763.636, 684.848, 178.788, 178.788)
 
-prueba = {}
-prueba.x = 200
-prueba.y = 100
-prueba.width = 100
-prueba.height = 100
-
-prueba.coll = collider.new(prueba.x, prueba.y, prueba.width, prueba.height, true)
-
-npc3 = world:newRectangleCollider(500, 600, 36, 60)
-npc3:setType('static')
-
-if game.state.map1 then
-
- npc3:setCollisionClass('ghost')
- --wall:setCollisionClass('solid')
---elseif game.state.map2 then
---  wall:setCollisionClass('ghost') --si se elimina esto se hace solido siempre
-end
- 
-
-
-function drawMap2()
-
-
-   local gameMap = sti('Maps/TestMapp.lua')
-    gameMap:drawLayer(gameMap.layers["ground"])
-    gameMap:drawLayer(gameMap.layers["trees"])
-
-   -- prueba.coll:draw()
+for key, collider in pairs(cl) do
+  collider:setType('static')
 end
 
 
 function drawMap1()
   love.graphics.clear()
 
-  
-  npc1:setType('static')
-  door1:setType('static')
-  enemy:setType('static')
-  
-    npc1:setFixedRotation(true)
-    npc1:setCollisionClass('npc')  
-    door1:setFixedRotation(true)
-    door1:setCollisionClass('door')
-  
-    enemy:setFixedRotation(true)
-    enemy:setCollisionClass('enemy')
-  
-    
-    pajaro:setType('static')
-    pajaro:setFixedRotation(true)
-    pajaro:setCollisionClass('bird')
-    
+
 --  gameMap2:drawLayer(gameMap2.layers['walls'])
   gameMap2:drawLayer(gameMap2.layers["grass"])
   gameMap2:drawLayer(gameMap2.layers["Cabana"])
@@ -89,5 +55,19 @@ function drawMap1()
   love.graphics.print('this is map 2', 300, 400)
   love.graphics.print("this is position 100", 100, 100)
 end
+
+
+
+
+
+function drawMap2()
+
+  local gameMap = sti('Maps/TestMapp.lua')
+   gameMap:drawLayer(gameMap.layers["ground"])
+   gameMap:drawLayer(gameMap.layers["trees"])
+
+  -- prueba.coll:draw()
+end
+
 
 

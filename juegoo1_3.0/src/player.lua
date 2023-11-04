@@ -2,15 +2,12 @@ local anim8 = require 'libraries/anim8/anim8'
 local cll = require 'src/npc_creator'
 --local coll =
 
-local x = 300
-local y = 250
 player = {}
     player.x = 300 
     player.y = 200
     player.width = 40
     player.height = 70
 --eliminar
-    player.collider2 = collider.new(player.x, player.y, player.width, player.height)
     player.collider = world:newBSGRectangleCollider(player.x, player.y, player.width, player.height, 12)
     player.collider:setFixedRotation(true)
     
@@ -65,14 +62,7 @@ player.collider:setLinearVelocity(vx, vy)
 player.x = player.collider:getX()
 player.y = player.collider:getY() 
 
---eliminar
-player.collider2.x = player.x - 20
-player.collider2.y = player.y - 30
 
---ERROR
-
-
---player.collider:setLinearVelocity(vx, vy)
 player.anim:update(dt) 
 
 end
@@ -80,7 +70,6 @@ end
 
 
 function playerdraw()
-    player.collider2:draw()
     player.anim:draw(player.sprite, player.x, player.y, nil, 4.2, nil, 6, 9 )
 end
 
