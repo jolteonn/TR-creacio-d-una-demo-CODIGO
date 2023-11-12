@@ -39,6 +39,7 @@ cam = camera()
  npcCreator = require "src/npc_creator"
 end
 
+ism2 = false
 
 movewall1 = false
 
@@ -51,6 +52,7 @@ function love.update(dt)
 
  if game.state.running then
   updateRunning(dt)
+  animUpdate(dt)
   --collider:update(player.collider2, prueba)
   playerMove = true
  else
@@ -113,6 +115,7 @@ function love.draw()
       love.graphics.print('map1', 0, 300)
     elseif map.state.map2 then
       love.graphics.print('map2', 0, 300)
+      ism2 = true
   end
 
   if property1 then--ignoreWalls then

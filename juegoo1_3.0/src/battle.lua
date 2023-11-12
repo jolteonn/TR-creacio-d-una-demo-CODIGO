@@ -13,7 +13,10 @@ local inter = false
 
 local turnTxt = 'nil'
 local battleDialog = 'nil'
- 
+local result = ' '
+
+local fondoNegro = love.graphics.newImage('assets/Captura.png')
+
 local tiempoAnteriorDown = 0
 local tiempoEsperaDown = 0.1
 local tiempoAnteriorUp = 0
@@ -78,10 +81,23 @@ local alive = true
    
    if alive then
     function battleUpdate(dt)
-    
+
         if start then
-          timer = timer + 0.02
-        end
+            timer = timer + 0.02
+          end
+    
+if enemy.health == 0 or player.health == 0 then --CUANDO ACABA EL COMBATE
+      start = true
+      if player.health == 0 then
+      result = 'GAME OVER'
+      elseif enemy.health == 0 then
+      result = 'HAS GANADO'
+    end
+      if timer >= 10 then
+      finish = true
+      end
+
+  end
 
     ------DIALOGO BATALLA-------------
 if currentTurn == player then
@@ -215,19 +231,19 @@ end
         elseif elf.health < 0 then
             elf.health = 0
         end 
+        
 
           
     end --space
   
-    if enemy.health == 0 or player.health == 0 then
-        finish = true
-      --  turnTxt = 'exiting'
-    end
+ 
     
 end
 tiempoAnteriorUp = tiempoActual
 
+
 end
+
 
 
 if finish then
@@ -258,8 +274,12 @@ end
  
 love.graphics.print(timer, 450)
 
+--love.graphics.push()
+--love.graphics.scale(2, 2)
+--love.graphics.draw(fondoNegro, 100, 100)
+love.graphics.print(result, 290, 300, 0, 2, 2)
+--love.graphics.pop()
 
- 
 love.graphics.print(dragon.health .. '/120', 325, 525)
 love.graphics.print(player.health .. '/100', 85, 525)
 love.graphics.print(elf.health .. '/70', 210, 525)

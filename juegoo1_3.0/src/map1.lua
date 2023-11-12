@@ -1,4 +1,5 @@
 local npcCreator = require "src/npc_creator"
+local npcAnim = require 'src/scenes'
 local mapis2 = false
 --local gameState = require 'src/stateManager'
 --local map = stateManager()
@@ -41,6 +42,10 @@ for key, collider in pairs(cl) do
   collider:setType('static')
 end
 
+function mapUpdate(dt)
+  animUpdate(dt)
+end
+
 
 function drawMap1()
   love.graphics.clear()
@@ -49,6 +54,8 @@ function drawMap1()
 --  gameMap2:drawLayer(gameMap2.layers['walls'])
   gameMap2:drawLayer(gameMap2.layers["grass"])
   gameMap2:drawLayer(gameMap2.layers["Cabana"])
+  --love.graphics.draw(drakkan, 900, 1600)
+  animDraw()
   gameMap2:drawLayer(gameMap2.layers["water"])
   gameMap2:drawLayer(gameMap2.layers["trees"])
   gameMap2:drawLayer(gameMap2.layers["trees1"])
@@ -56,8 +63,11 @@ function drawMap1()
   love.graphics.print("this is position 100", 100, 100)
 end
 
+--collider34 = world:newRectangleCollider(100, 100, 100, 100)
 
 
+ -- collider34:destroy()
+--end
 
 
 function drawMap2()

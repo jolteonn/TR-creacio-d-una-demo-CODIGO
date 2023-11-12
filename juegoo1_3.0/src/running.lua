@@ -14,7 +14,9 @@ mapChange = require 'src/stateManager'
      player.collider:setCollisionClass('player')
      player.collider:setCollisionClass('solid')
      world:addCollisionClass("door")
-
+     local timer1 = 0
+     
+local startTimer = false
 
      local inmap = 'inmap1'
      if game.state.map1 then
@@ -33,6 +35,7 @@ mapChange = require 'src/stateManager'
      world:addCollisionClass("bird")
      world:addCollisionClass("npc3")
      world:addCollisionClass("wall")
+     world:addCollisionClass("event1")
 
     -----npc colliders----------------     
     mp1 = {}
@@ -40,8 +43,8 @@ mapChange = require 'src/stateManager'
     mp1.enemy = world:newRectangleCollider(900, 400, 35, 60)
     mp1.door1 = world:newRectangleCollider(900, 1900, 400, 50)
     mp1.npc3 = world:newRectangleCollider(500, 600, 36, 60)
-    mp1.npc3:setType('static')
     mp1.pajaro = world:newRectangleCollider(200, 300, 36, 60)
+    mp1.ev1block = world:newRectangleCollider(800, 1550, 450, 50)
     
    -----set tipo y classe------
 
@@ -53,6 +56,7 @@ mapChange = require 'src/stateManager'
   mp1.enemy:setCollisionClass('enemy')
   mp1.pajaro:setCollisionClass('bird')
   mp1.door1:setCollisionClass('door')
+  mp1.ev1block:setCollisionClass('event1')
     ------------------------------------------------
     
 
@@ -68,33 +72,60 @@ local alien_d3 = "holaesta es la pagina 33333333333"
 
 local bird_name = "bird"
 
+--event1
+
+local ev1_name = 'Isildur'
+local ev1_d1 = 'evnto uno yo q se'
+local ev1_d2 = 'aun no tenemos los dialogos xd'
+local ev1_d3 = 'pue na'
+local ev1_m = 'true'
+local ev1_d4 = 'hola texto 4'
+
 -----------------------------------------------------------------------
 
 local primero = "texto 1"
 local segundo = "texto 2"
 local tercero = "texto 3"
 local cuarto = "texto 4"
+local quinto = "texto 5"
+local sexto = "texto6"
 
 
-local dialog1 = dialog.new(boxx, primero, segundo, tercero)
+local dialog1 = dialog.new(boxx, primero, segundo, tercero, cuarto, quinto)
 
 local bird_d1 = "olaola aaaaaaaa"
 
 
-
+-------- MUEVE COLLIDERS MAPA2
+xc = 0
+mp2 = {}
+  mp2.collider34 = world:newRectangleCollider(xc + 100, 100, 100, 100)
+  mp2.collider13 = world:newRectangleCollider(xc + 400, 100, 100, 100)
+  
+  for key, collider in pairs(mp2) do
+    collider:setType('static')
+  end
 function updateRunning(dt)
-
-
-
 
     playerupdate(dt)
   world:update(dt)
     cam:lookAt(player.x, player.y)
    player.anim:update(dt)  
 
+   if ism2 then
+  xc = 400
+  
+  for key, collider in pairs(mp2) do
+    collider:setPosition(xc + 900, 900)
+  end
+  end
+------------------
+
+
 if player.collider:enter("npc") then
   dialogEvent = true
   npcCollide = true
+  moreText = false
   dialog1:updateText("NPC", "this is not bird", alien_d3, alien_d1)
 end
 
@@ -133,6 +164,23 @@ if player.collider:enter("door") then
 
   end
 end
+
+if startTimer then
+timer1 = timer1 + 0.1
+end
+
+if player.collider:enter('event1') then
+  moreText = true
+  dialogEvent = true
+  onScreen = true
+  dialog1:updateText(ev1_name, ev1_d1, ev1_d2, ev1_d3,'Drakkan', 'holahola', 'mamaguebooo', 'alalalalon alalala lon lon')
+  if dialogFinish then
+    startTimer = true
+    --dialogEvent = true
+   -- onScreen = true
+   -- dialog1:updateText("NPC", "this is not bird", alien_d3, alien_d1)
+  end
+end
 -----
 
 --CHEKIF---(DELETE LATER)
@@ -159,7 +207,8 @@ end
 if player.collider:enter("bird") then
   dialogEvent = true
   onScreen = true
-  bird_ = true
+  bird_ = true --qe era esto???xd
+  moreText = false
   primero = "pajroo"
   segundo = bird_d1
   dialog1:updateText("Bird", "I am bird", "hello", "bye", "xd")
@@ -180,7 +229,7 @@ if player.collider:exit("bird") then
    end
   end
 
-
+  
 
 function drawRunning()
 
@@ -193,6 +242,7 @@ elseif map.state.map2 then
  
 end
 
+
 if finish then 
   drawMap1()
 end
@@ -203,7 +253,7 @@ world:draw()
   playerdraw()
 cam:detach()
 love.graphics.print(textou)
-
+love.graphics.print(timer1, 500)
 if onScreen then
   dialog1:show(50, 450)
 end

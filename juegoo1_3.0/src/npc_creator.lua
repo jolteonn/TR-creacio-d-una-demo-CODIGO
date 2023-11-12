@@ -38,11 +38,14 @@ dialog = {
     text = nil,
     text2 = nil,
     text3 = nil,
+    text4 = nil,
+    text5 = nil,
+    text6 = nil,
 }
 
 dialog.__index = dialog
 
-function dialog.new(box, name, text, text2, text3)
+function dialog.new(box, name, text, text2, text3, moreText, name2, text4, text5, text6)
     local instance = setmetatable({}, dialog)
     instance.box = box
     instance.name = name
@@ -50,6 +53,12 @@ function dialog.new(box, name, text, text2, text3)
     instance.text = text
     instance.text2 = text2
     instance.text3 = text3
+    instance.moreText = moreText
+    instance.name2 = name2
+    instance.text4 = text4
+    instance.text5 = text5
+    instance.text6 = text6
+    instance.text7 = text7
 
     return instance
 end
@@ -60,7 +69,7 @@ end
     love.graphics.print(clicks)
     love.graphics.draw(self.box, x, y)
     --love.graphics.setFont(font)
-    love.graphics.push("all")    
+    love.graphics.push("all")  
     love.graphics.setColor(0, 0, 0, 255)
     love.graphics.print(self.text, 90, 486)
     love.graphics.print(self.name, 110, 455)
@@ -69,12 +78,18 @@ end
  end
 
  
- function dialog:updateText(name, text, text2, text3)
+ function dialog:updateText(name, text, text2, text3, name2, text4, text5, text6)
   self.name = name
   self.text0 = text
   self.text = text
   self.text2 = text2
   self.text3 = text3
+  self.moreText = moreText
+  self.name2 = name2
+  self.text4 = text4
+  self.text5 = text5
+  self.text6 = text6
+  self.text7 = text7
 end
 
     
@@ -94,7 +109,7 @@ local show0 = true
          clicks = clicks + 1
        end
 
-  if game.state.running then --ultima modificacion
+  if game.state.running then 
     if key == 'space' then
       clicks = clicks + 1
 
@@ -121,18 +136,81 @@ local show0 = true
       if clicks == 3 then
         self.text = self.text3
     end
+
+  if moreText then
     if clicks == 4 then
+    
+          self.name = self.name2
+          self.text = self.text4
+   end
+  
+  if clicks == 5 then
+          self.text = self.text5
+  end
+  
+ if clicks == 6 then
+    self.text = self.text6
+  end 
+   if clicks == 7 then
+    dialogEvent = false
+    openDialog = false
+    onScreen = false
+    --moreText = false
+    clicks = 0
+    show1 = false
+    show2 = false
+    show3 = false
+    dialogFinish = true
+  end
+       -- if clicks == 8 then
+ 
+       -- end
+
+     elseif moreText == false then
+      if clicks == 4 then
         dialogEvent = false
         openDialog = false
         onScreen = false
+        --moreText = false
         clicks = 0
         show1 = false
         show2 = false
         show3 = false
         dialogFinish = true
-    end
- 
-       
+      end
+      
+    end 
+  --end
+      --[[  if clicks == 7 then
+          dialogEvent = false
+          openDialog = false
+          onScreen = false
+          --moreText = false
+          clicks = 0
+          show1 = false
+          show2 = false
+          show3 = false
+          dialogFinish = true
+        end
+        
+        
+      elseif moreText == false and clicks == 4 then
+     -- if self.moreText == false then
+        dialogEvent = false
+        openDialog = false
+        onScreen = false
+        --moreText = false
+        clicks = 0
+        show1 = false
+        show2 = false
+        show3 = false
+        dialogFinish = true
+     end
+    end]]
+
+ -- ayer
+
+
 end
 
 
