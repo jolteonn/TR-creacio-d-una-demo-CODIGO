@@ -78,7 +78,7 @@ end
  end
 
  
- function dialog:updateText(name, text, text2, text3, name2, text4, text5, text6)
+ function dialog:updateText(name, text, text2, text3, name2, text4, name3, text5, text6)
   self.name = name
   self.text0 = text
   self.text = text
@@ -87,18 +87,31 @@ end
   self.moreText = moreText
   self.name2 = name2
   self.text4 = text4
+  self.name3 = name3
   self.text5 = text5
   self.text6 = text6
   self.text7 = text7
 end
 
-    
+
 
 function dialog:update()
 local show0 = true
  local show1 = false
  local show2 = false
  local show3 = false
+
+ function dialogFinish1()
+  dialogEvent = false
+  openDialog = false
+  onScreen = false
+  --moreText = false
+  clicks = 0
+  show1 = false
+  show2 = false
+  show3 = false
+  dialogFinish = true
+ end
 
 
     function love.keypressed(key, scancode, isrepeat)
@@ -108,6 +121,7 @@ local show0 = true
          openDialog = true
          clicks = clicks + 1
        end
+
 
   if game.state.running then 
     if key == 'space' then
@@ -125,16 +139,24 @@ local show0 = true
       end
       if show0 then
         self.text0 = self.text
+        if self.text2 == nil then
+          dialogFinish1()
+        end
       end
       if clicks == 2 then
         show1 = false
         if show1 == false then
-
             self.text = self.text2
+          if self.text2 == nil then
+            dialogFinish1()
+          end
         end
       end
       if clicks == 3 then
         self.text = self.text3
+        if self.text3 == nil then
+          dialogFinish1()
+        end
     end
 
   if moreText then
@@ -146,37 +168,29 @@ local show0 = true
   
   if clicks == 5 then
           self.text = self.text5
+      if self.text5 == nil then
+         dialogFinish1()
+       end
+       if self.name3 == nil then   --ULTIMO CAMBIO 13/11
+        self.name = self.name2
+       elseif self.name3 ~= nil then
+        self.name = self.name3
+       end
   end
   
  if clicks == 6 then
     self.text = self.text6
+    if self.text6 == nil then
+      dialogFinish1()
+    end
   end 
    if clicks == 7 then
-    dialogEvent = false
-    openDialog = false
-    onScreen = false
-    --moreText = false
-    clicks = 0
-    show1 = false
-    show2 = false
-    show3 = false
-    dialogFinish = true
+     dialogFinish1()
   end
-       -- if clicks == 8 then
- 
-       -- end
 
      elseif moreText == false then
       if clicks == 4 then
-        dialogEvent = false
-        openDialog = false
-        onScreen = false
-        --moreText = false
-        clicks = 0
-        show1 = false
-        show2 = false
-        show3 = false
-        dialogFinish = true
+        dialogFinish1()
       end
       
     end 

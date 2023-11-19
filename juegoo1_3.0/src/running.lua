@@ -5,6 +5,10 @@ local textou = 'txt'
 local map1 = require "src/map1"
 local battle = require "src/battle"
 
+local gameMap2 = sti ('maps/mapa_cabana_exterior6.lua')
+local gameMap3 = sti ('maps/TestMapp.lua')
+local gameMap4 = sti ('maps/mapForest1.lua')
+
 mapChange = require 'src/stateManager'
 
 
@@ -37,7 +41,7 @@ local startTimer = false
      world:addCollisionClass("wall")
      world:addCollisionClass("event1")
 
-    -----npc colliders----------------     
+    -----npc colliders MAPA1----------------     
     mp1 = {}
     mp1.npc1 = world:newRectangleCollider(400, 300, 35, 60)
     mp1.enemy = world:newRectangleCollider(900, 400, 35, 60)
@@ -45,19 +49,23 @@ local startTimer = false
     mp1.npc3 = world:newRectangleCollider(500, 600, 36, 60)
     mp1.pajaro = world:newRectangleCollider(200, 300, 36, 60)
     mp1.ev1block = world:newRectangleCollider(800, 1550, 450, 50)
-    
-   -----set tipo y classe------
+
+ 
+
+      -----set tipo y classe------
 
    for key, collider in pairs(mp1) do
     collider:setType('static')
   end
+
 
   mp1.npc1:setCollisionClass('npc')
   mp1.enemy:setCollisionClass('enemy')
   mp1.pajaro:setCollisionClass('bird')
   mp1.door1:setCollisionClass('door')
   mp1.ev1block:setCollisionClass('event1')
-    ------------------------------------------------
+
+
     
 
   local npcCreator = require "src/npc_creator"
@@ -97,28 +105,83 @@ local bird_d1 = "olaola aaaaaaaa"
 
 
 -------- MUEVE COLLIDERS MAPA2
-xc = 0
+local xc = 0
+local xc1 = 0
+--- napc colliders MAPA2---------------------
+
+local mp2op = {
+  collider34 = { x = 100, y = 100 },
+  collider13 = { x = 400, y = 100 },
+  door2 = { x = 900, y = 1960 }
+}
+
 mp2 = {}
-  mp2.collider34 = world:newRectangleCollider(xc + 100, 100, 100, 100)
-  mp2.collider13 = world:newRectangleCollider(xc + 400, 100, 100, 100)
+  mp2.collider34 = world:newRectangleCollider(mp2op.collider34.x, mp2op.collider34.y, 100, 100)
+  mp2.collider13 = world:newRectangleCollider(mp2op.collider13.x, mp2op.collider13.y, 100, 100)
+  mp2.door2 = world:newRectangleCollider(mp2op.door2.x, mp2op.door2.y, 400, 50)
+
   
+
   for key, collider in pairs(mp2) do
     collider:setType('static')
   end
+
+  world:addCollisionClass("door2")
+
+  mp2.door2:setCollisionClass('door2')
+
+
 function updateRunning(dt)
+
 
     playerupdate(dt)
   world:update(dt)
     cam:lookAt(player.x, player.y)
    player.anim:update(dt)  
 
-   if ism2 then
-  xc = 400
+  -------- BORDES DE LOS MAPAS
+  local w = love.graphics.getWidth()
+  local h = love.graphics.getHeight()
+
+  if cam.x < w/2 then
+    cam.x = w/2
+  end
+  if cam.y < h/2 then
+    cam.y = h/2
+  end
+
+  local map2H = gameMap2.width * gameMap2.tilewidth
+  local map2W = gameMap2.height * gameMap2.tileheight
+
   
-  for key, collider in pairs(mp2) do
-    collider:setPosition(xc + 900, 900)
+  local map3H = gameMap3.width * gameMap3.tilewidth
+  local map3W = gameMap3.height * gameMap3.tileheight
+
+  local map4H = gameMap4.width * gameMap4.tilewidth -- NO FUNCIONA
+  local map4W = gameMap4.height * gameMap4.tileheight
+--  lmite derecho de la camara
+if cam.x > map2W - w / 2 then
+  cam.x = map2W - w / 2
+end
+
+-- limite inferior de la camara
+if cam.y > map2H - h / 2 then
+  cam.y = map2H - h / 2
+end
+-----
+
+    if ism1 then
+      xc = 1900
+      mp2.collider34:setPosition( xc + 100, 100)
+      mp2.collider13:setPosition( xc + 400, 100)
+    end
+
+if ism2 then
+      mp2.collider34:setPosition(mp2op.collider34.x, mp2op.collider34.y)
+      mp2.collider13:setPosition(mp2op.collider13.x, mp2op.collider13.y)
   end
-  end
+  
+
 ------------------
 
 
@@ -139,7 +202,7 @@ if player.collider:exit("npc") then
   playerTeleported = true
    if playerTeleported then
      player.x = 250
-     player.y = 250
+     player.y = 265
      player.collider:setPosition(player.x, player.y)
    end  
   map:changeGameState("map2")    
@@ -151,11 +214,28 @@ end
 end
 end
 
+if player.collider:enter("door2") then  
+  playerTeleported = true
+   if playerTeleported then
+     player.x = 250
+     player.y = 250
+     player.collider:setPosition(player.x, player.y)
+   end  
+  map:changeGameState("map3")    
+  for key, collider in pairs(mp2) do
+    collider:destroy()
+end
+ --[[ for key, collider in pairs(cl) do
+    collider:destroy()
+end]]
+end
+
+
 ---- ADD MAP2 COLLIDERS
 if player.collider:enter("door") then
   if map.state.map1 then
    wallState = 'solid'
-    solidST = 'solid'   -- no tiene relevancia ?? npc3 funciona igual si es solid o ghost
+    solidST = 'solid'   -- npc3 funciona igual si es solid o ghost
      mp1.npc3:setCollisionClass(solidST)
   elseif map.state.map2 then
     wallState = 'ghost'
@@ -165,15 +245,17 @@ if player.collider:enter("door") then
   end
 end
 
+
+
 if startTimer then
 timer1 = timer1 + 0.1
 end
 
-if player.collider:enter('event1') then
+if player.collider:enter('event1') then  --ULTIMO CAMBIO 13/11
   moreText = true
   dialogEvent = true
   onScreen = true
-  dialog1:updateText(ev1_name, ev1_d1, ev1_d2, ev1_d3,'Drakkan', 'holahola', 'mamaguebooo', 'alalalalon alalala lon lon')
+  dialog1:updateText(ev1_name, ev1_d1, ev1_d2, ev1_d3,'Drakkan', 'holahola', 'duennde', 'queueueu') --'mamaguebooo', 'alalalalon alalala lon lon')
   if dialogFinish then
     startTimer = true
     --dialogEvent = true
@@ -220,7 +302,7 @@ if player.collider:exit("bird") then
   bird_ = false
   end
 
---eliminar
+--eliminar?
    if player.collider:enter("npc3") then
     solidST = 'ghost'
    end
@@ -240,6 +322,8 @@ if map.state.map1 then
 elseif map.state.map2 then
   drawMap2()
  
+elseif map.state.map3 then
+  drawMap3()
 end
 
 

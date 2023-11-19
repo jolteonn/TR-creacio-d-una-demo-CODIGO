@@ -6,7 +6,8 @@ local mapis2 = false
 --local running = require 'src/running'
 
 gameMap2 = sti ('maps/mapa_cabana_exterior6.lua')
-
+gameMap3 = sti ('maps/TestMapp.lua')
+gameMap4 = sti ('maps/mapForest1.lua')
 
 
 world:addCollisionClass('solid')
@@ -41,6 +42,10 @@ cl.pr21 = world:newRectangleCollider(763.636, 684.848, 178.788, 178.788)
 for key, collider in pairs(cl) do
   collider:setType('static')
 end
+
+
+
+--WALL COLLIDERS MAP3
 
 function mapUpdate(dt)
   animUpdate(dt)
@@ -77,6 +82,13 @@ function drawMap2()
    gameMap:drawLayer(gameMap.layers["trees"])
 
   -- prueba.coll:draw()
+end
+
+function drawMap3()
+  local gameMap = sti('Maps/mapForest1.lua')
+  gameMap:drawLayer(gameMap.layers["ground"])
+  gameMap:drawLayer(gameMap.layers["trees1"])
+  gameMap:drawLayer(gameMap.layers["trees2"])
 end
 
 

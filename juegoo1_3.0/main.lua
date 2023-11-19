@@ -39,7 +39,10 @@ cam = camera()
  npcCreator = require "src/npc_creator"
 end
 
+ism1 = false
 ism2 = false
+ism3 = false
+
 
 movewall1 = false
 
@@ -59,9 +62,20 @@ function love.update(dt)
   playerMove = false
 end
 
+if map.state.map1 then
+  ism1 = true
+elseif map.state.map1 == false then
+  ism1 = false
+end
 
-if game.state.map2 then
+if map.state.map3 then
+  ism3 = true
+end
+
+if map.state.map2 then
 ism2 = true
+elseif map.state.map2 == false then
+  ism2 = false
 end
  
  if game.state.menu then
@@ -111,12 +125,13 @@ function love.draw()
     love.graphics.print(player.y, 50, 100)
     love.graphics.print(textt, 50, 200)
 
-    if map.state.map1 then
+    if ism1 then
       love.graphics.print('map1', 0, 300)
-    elseif map.state.map2 then
+    elseif ism2 then
       love.graphics.print('map2', 0, 300)
-      ism2 = true
+     
   end
+
 
   if property1 then--ignoreWalls then
     textt = ' 11212 ignorin wall'

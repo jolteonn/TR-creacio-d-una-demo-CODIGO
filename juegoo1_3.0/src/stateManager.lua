@@ -13,6 +13,7 @@ function gameSt()
 
             map1 = true, 
             map2 = false,
+            map3 = false,
         },
 
         changeGameState = function(self, state)
@@ -26,6 +27,7 @@ function gameSt()
 
             self.state.map1 = state == 'map1'
             self.state.map2 = state == 'map2' 
+            self.state.map3 = state == 'map3'
         end
     }
 end
