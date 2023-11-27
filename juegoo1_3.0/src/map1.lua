@@ -10,8 +10,6 @@ gameMap3 = sti ('maps/pueblo2.lua')
 gameMap4 = sti ('maps/mapForest1.lua')
 
 
-local casa = love.graphics.newImage('assets/casa_pueblo.png')
-local panaderia = love.graphics.newImage('assets/panaderia.png')
 local portal = love.graphics.newImage('assets/portal.png')
 
 world:addCollisionClass('solid')
@@ -47,9 +45,6 @@ for key, collider in pairs(cl) do
   collider:setType('static')
 end
 
---WALL COLLIDERS MAP2
-
-cl2 = {}
 
 
 --WALL COLLIDERS MAP3
@@ -88,9 +83,6 @@ function drawMap2()
    gameMap:drawLayer(gameMap.layers["ground"])
    gameMap:drawLayer(gameMap.layers["ground2"])
    gameMap:drawLayer(gameMap.layers["trees"])
-
-   love.graphics.draw(casa, 200, 300)
-   love.graphics.draw(panaderia, 600, 400)
 
   -- prueba.coll:draw()
 end

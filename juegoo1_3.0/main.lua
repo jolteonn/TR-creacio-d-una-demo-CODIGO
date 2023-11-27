@@ -27,7 +27,8 @@ function love.load()
     menuState = require 'src/menu'
     runningState = require 'src/running'
     sceneState = require 'src/scenes'
-    local map11 = require 'src/map1' 
+    local map11 = require 'src/map1'
+    local map22 = require 'src/map2'  
   defaultFont = love.graphics.newFont('assets/fonts/dogica/TTF/dogica.ttf', 10)
 
 camera = require 'libraries/camera'

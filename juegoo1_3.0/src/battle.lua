@@ -1,5 +1,6 @@
 require "src/npc_creator"
-
+require 'src/battleTurns'
+battle = battleTurns()
  
 local tiempoActual = love.timer.getTime()
  
