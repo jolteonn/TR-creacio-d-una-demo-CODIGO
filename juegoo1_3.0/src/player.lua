@@ -4,7 +4,7 @@ local cll = require 'src/npc_creator'
 
 player = {}
     player.x = 300 
-    player.y = 200
+    player.y = 400
     player.width = 40
     player.height = 70
 --eliminar

@@ -6,9 +6,13 @@ local mapis2 = false
 --local running = require 'src/running'
 
 gameMap2 = sti ('maps/mapa_cabana_exterior6.lua')
-gameMap3 = sti ('maps/TestMapp.lua')
+gameMap3 = sti ('maps/pueblo2.lua')
 gameMap4 = sti ('maps/mapForest1.lua')
 
+
+local casa = love.graphics.newImage('assets/casa_pueblo.png')
+local panaderia = love.graphics.newImage('assets/panaderia.png')
+local portal = love.graphics.newImage('assets/portal.png')
 
 world:addCollisionClass('solid')
 world:addCollisionClass('ghost', {ignores = {'solid'}})
@@ -43,6 +47,9 @@ for key, collider in pairs(cl) do
   collider:setType('static')
 end
 
+--WALL COLLIDERS MAP2
+
+cl2 = {}
 
 
 --WALL COLLIDERS MAP3
@@ -55,7 +62,6 @@ end
 function drawMap1()
   love.graphics.clear()
 
-
 --  gameMap2:drawLayer(gameMap2.layers['walls'])
   gameMap2:drawLayer(gameMap2.layers["grass"])
   gameMap2:drawLayer(gameMap2.layers["Cabana"])
@@ -66,6 +72,7 @@ function drawMap1()
   gameMap2:drawLayer(gameMap2.layers["trees1"])
   love.graphics.print('this is map 2', 300, 400)
   love.graphics.print("this is position 100", 100, 100)
+  love.graphics.draw(portal, 10, 0)
 end
 
 --collider34 = world:newRectangleCollider(100, 100, 100, 100)
@@ -77,9 +84,13 @@ end
 
 function drawMap2()
 
-  local gameMap = sti('Maps/TestMapp.lua')
+  local gameMap = sti('Maps/pueblo2.lua')
    gameMap:drawLayer(gameMap.layers["ground"])
+   gameMap:drawLayer(gameMap.layers["ground2"])
    gameMap:drawLayer(gameMap.layers["trees"])
+
+   love.graphics.draw(casa, 200, 300)
+   love.graphics.draw(panaderia, 600, 400)
 
   -- prueba.coll:draw()
 end

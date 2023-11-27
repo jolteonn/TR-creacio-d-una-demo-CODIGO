@@ -9,6 +9,7 @@ local gameMap2 = sti ('maps/mapa_cabana_exterior6.lua')
 local gameMap3 = sti ('maps/TestMapp.lua')
 local gameMap4 = sti ('maps/mapForest1.lua')
 
+
 mapChange = require 'src/stateManager'
 
 
@@ -19,6 +20,7 @@ mapChange = require 'src/stateManager'
      player.collider:setCollisionClass('solid')
      world:addCollisionClass("door")
      local timer1 = 0
+     local firstbattle = true
      
 local startTimer = false
 
@@ -41,14 +43,15 @@ local startTimer = false
      world:addCollisionClass("wall")
      world:addCollisionClass("event1")
 
-    -----npc colliders MAPA1----------------     
+    -----npc colliders MAPA1----------------
+    local ev1x = 800     
     mp1 = {}
     mp1.npc1 = world:newRectangleCollider(400, 300, 35, 60)
     mp1.enemy = world:newRectangleCollider(900, 400, 35, 60)
     mp1.door1 = world:newRectangleCollider(900, 1900, 400, 50)
     mp1.npc3 = world:newRectangleCollider(500, 600, 36, 60)
     mp1.pajaro = world:newRectangleCollider(200, 300, 36, 60)
-    mp1.ev1block = world:newRectangleCollider(800, 1550, 450, 50)
+    mp1.ev1block = world:newRectangleCollider(ev1x, 1550, 450, 50)
 
  
 
@@ -160,14 +163,32 @@ function updateRunning(dt)
   local map4H = gameMap4.width * gameMap4.tilewidth -- NO FUNCIONA
   local map4W = gameMap4.height * gameMap4.tileheight
 --  lmite derecho de la camara
+if ism3 then
+if cam.x > (map2W - w / 2) - 650 then
+  cam.x = (map2W - w / 2) - 650
+elseif ism2 then
+  if cam.x > (map2W - w / 2)  then
+   cam.x = (map2W - w / 2) + 100
+  end
+end
+end
+
 if cam.x > map2W - w / 2 then
   cam.x = map2W - w / 2
 end
 
 -- limite inferior de la camara
-if cam.y > map2H - h / 2 then
-  cam.y = map2H - h / 2
+if ism3 then
+if cam.y > (map2H - h / 2) - 790 then
+ cam.y = (map2H - h / 2) - 790
+
 end
+end
+
+
+ if cam.y > map2H - h / 2 then
+  cam.y = map2H - h / 2
+ end
 -----
 
     if ism1 then
@@ -246,23 +267,36 @@ if player.collider:enter("door") then
 end
 
 
-
 if startTimer then
 timer1 = timer1 + 0.1
-end
+end  ---oOOO
 
 if player.collider:enter('event1') then  --ULTIMO CAMBIO 13/11
+  mp1.ev1block:destroy()
   moreText = true
   dialogEvent = true
   onScreen = true
   dialog1:updateText(ev1_name, ev1_d1, ev1_d2, ev1_d3,'Drakkan', 'holahola', 'duennde', 'queueueu') --'mamaguebooo', 'alalalalon alalala lon lon')
-  if dialogFinish then
-    startTimer = true
-    --dialogEvent = true
-   -- onScreen = true
-   -- dialog1:updateText("NPC", "this is not bird", alien_d3, alien_d1)
-  end
 end
+  if dialogFinish and map.state.map1 then
+   startTimer = true 
+   
+  end
+  if timer1 > 5 then
+    map:changeGameState("battle")
+    -- no funciona
+  end
+
+if map.state.battle then 
+  startTimer = false
+  timer1 = 0
+  firstbattle = false
+  ev1x =  ev1x - 400
+end
+
+
+
+
 -----
 
 --CHEKIF---(DELETE LATER)

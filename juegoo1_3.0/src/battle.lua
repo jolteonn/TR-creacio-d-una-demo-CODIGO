@@ -1,6 +1,5 @@
 require "src/npc_creator"
-require 'src/battleTurns'
-battle = battleTurns()
+
  
 local tiempoActual = love.timer.getTime()
  
@@ -12,10 +11,11 @@ local inter = false
 --local timerspeed = 1
 
 local turnTxt = 'nil'
-local battleDialog = 'nil'
+local battleDialog = ' '
 local result = ' '
 
 local fondoNegro = love.graphics.newImage('assets/Captura.png')
+local batallaFondo = love.graphics.newImage('assets/battlaFondo.png')
 
 local tiempoAnteriorDown = 0
 local tiempoEsperaDown = 0.1
@@ -34,10 +34,10 @@ character_select = true
  
 local player = { name = "Player", health = 100, attack = 10 }
 local elf = { name = "Elf", health = 70, attack = 8 }
-local enemy = { name = "Enemy", health = 100, attack = 10 }
+local enemy = { name = "Enemy", health = 90, attack = 10 }
 local dragon = { name = "Dragon", health = 120, attack = 15 }
 
-
+local enemy2 = { name = "Enemy2", health = 100, attack = 10  }
  
 local currentTurn = player
  
@@ -146,6 +146,9 @@ end
         if currentTurn == elf and arrow2 then
             battleDialog = 'Isildur utilizo ataquee2'
         end
+        if currentTurn == elf and arrow3 then
+            battleDialog = 'Isildur utilizo ataquee3'
+        end
         if currentTurn == player and arrow1 then
             battleDialog = 'Connor utilizo ataque1'
         end
@@ -160,6 +163,9 @@ end
         end
         if currentTurn == dragon and arrow2 then
             battleDialog = 'Drakkan utilizo ataque2'
+        end
+        if currentTurn == dragon and arrow3 then
+            battleDialog = 'Drakkan utilizo ataque3'
         end
        if currentTurn == enemy then 
         if random1 == 1 then
@@ -248,15 +254,30 @@ end
 
 if finish then
     map:changeGameState('map1')
+    mp1.ev1block:destroy()
+    --map:changeGameState("running")
  end
 
 function battleDraw()
 
    -- love.graphics.rectangle('fill', 300, 200, 500, 500) -- FONDO
+   love.graphics.draw(batallaFondo, 50, 0, nil, 0.5, 0.5)
+   love.graphics.draw(batallaFondo, 0, 50, nil, 0.5, 0.5)
+   love.graphics.draw(batallaFondo, 200, 50, nil, 0.5, 0.5)
+   love.graphics.draw(batallaFondo, 0, 0, nil, 0.5, 0.5)
+
+   love.graphics.draw(batallaFondo, 25, 0, nil, 0.5, 0.5)
+
 
  love.graphics.print(turnTxt, 100)
- love.graphics.print(battleDialog, 150, 385)
+ love.graphics.print(battleDialog, 70, 395)
+ love.graphics.push('all')
+ love.graphics.setColor(0, 0, 0, 1)
+ love.graphics.rectangle('fill', 50, 400, 700, 160) 
+ love.graphics.pop()
+ love.graphics.print(battleDialog, 70, 405)
     love.graphics.rectangle('line', 50, 400, 700, 160) 
+
  
 battle_buttons:showw(600, 420)
 
@@ -266,11 +287,6 @@ end
 
 --love.graphics.print(turnTxt, 100)
 
-if enemy.health == 0 then
-    love.graphics.print('PLAYER WIN', 200)
-elseif player.health == 0 then
-    love.graphics.print('GAME OVER', 200)
-end
  
 love.graphics.print(timer, 450)
 
@@ -280,13 +296,42 @@ love.graphics.print(timer, 450)
 love.graphics.print(result, 290, 300, 0, 2, 2)
 --love.graphics.pop()
 
+
 love.graphics.print(dragon.health .. '/120', 325, 525)
 love.graphics.print(player.health .. '/100', 85, 525)
 love.graphics.print(elf.health .. '/70', 210, 525)
-love.graphics.print(enemy.health .. '/100', 430, 525)
- 
+love.graphics.print(enemy.health .. '/90', 430, 525)
+
 love.graphics.rectangle('line', 70, 420, 100, 120)
+
+love.graphics.push('all')
+ love.graphics.setColor(0, 0, 0, 1)
+ love.graphics.rectangle('fill', 70, 420, 100, 20) 
+ love.graphics.pop()
+ love.graphics.rectangle('line', 70, 420, 100, 20)
+ love.graphics.print("Connor", 75, 425)
+
 love.graphics.rectangle('line', 190, 420, 100, 120)
+love.graphics.push('all')
+ love.graphics.setColor(0, 0, 0, 1)
+ love.graphics.rectangle('fill', 190, 420, 100, 20) 
+ love.graphics.pop()
+ love.graphics.rectangle('line', 190, 420, 100, 20)
+ love.graphics.print("Isildur", 195, 425)
+
 love.graphics.rectangle('line', 310, 420, 100, 120)
+love.graphics.push('all')
+ love.graphics.setColor(0, 0, 0, 1)
+ love.graphics.rectangle('fill', 310, 420, 100, 20)
+ love.graphics.pop()
+ love.graphics.rectangle('line',  310, 420, 100, 20)
+ love.graphics.print("Drakkan", 315, 425)
+
+
+if enemy.health == 0 then
+    love.graphics.print('PLAYER WIN', 200)
+elseif player.health == 0 then
+    love.graphics.print('GAME OVER', 200)
+end
 --character_buttons:showw(100, 420)
 end

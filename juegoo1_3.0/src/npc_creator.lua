@@ -122,7 +122,6 @@ local show0 = true
          clicks = clicks + 1
        end
 
-
   if game.state.running then 
     if key == 'space' then
       clicks = clicks + 1
