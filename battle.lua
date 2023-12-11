@@ -9,7 +9,7 @@ local start = false
 local atking = false
 local inter = false
 
---local timerspeed = 1
+finishB = false
 
 local turnTxt = 'nil'
 local battleDialog = ' '
@@ -17,6 +17,10 @@ local result = ' '
 
 local fondoNegro = love.graphics.newImage('assets/Captura.png')
 local batallaFondo = love.graphics.newImage('assets/battlaFondo.png')
+local drakkanBatalla = love.graphics.newImage('assets/drakkanAxe.png')
+local enemigo = love.graphics.newImage('assets/enemigo2.png')
+local connorBatalla = love.graphics.newImage('assets/connor2.png')
+local elfBatalla = love.graphics.newImage('assets/elf2.png')
 
 local tiempoAnteriorDown = 0
 local tiempoEsperaDown = 0.1
@@ -27,7 +31,6 @@ local player1 = 'ataque'
 local player2 = 'ataque'
 
 battle_buttons = button.row("menu", player2, "atque 2", "ataque 3")
---character_buttons = button.row('battle', 'hola', 'adios', 'nooo')
 local textbat = 'hello'
 character_select = true
  
@@ -95,9 +98,12 @@ if enemy.health == 0 or player.health == 0 then --CUANDO ACABA EL COMBATE
       result = 'HAS GANADO'
     end
       if timer >= 5 then
+        finishB = true
       finish = true
+      if finish  then
+        game:changeGameState('map2')
+      end
     end
-
   end
 
     ------DIALOGO BATALLA-------------
@@ -118,7 +124,7 @@ end
     if love.keyboard.isDown("space") then
         if tiempoActual - tiempoAnteriorUp >= tiempoEsperaUp then
          local random1 = math.random(1, 3)
-        -- Realizar el ataque actual
+    
         if currentTurn == player then
              playerAttack(enemy)
         elseif currentTurn == elf then
@@ -136,7 +142,7 @@ end
                 if game.state.map1 then
                    game:changeGameState('map2')
                 end
-              --  turnTxt = 'exiting'
+           
             end
         elseif currentTurn == dragon then
             dragonAttack(player)
@@ -180,7 +186,7 @@ end
             battleDialog = 'enemigo ataco a Drakkan'
         end
        end
-        -- Cambiar al siguiente turno
+
         changeTurn()
     end
 
@@ -194,7 +200,7 @@ end
         if tiempoActual - tiempoAnteriorUp >= tiempoEsperaUp then
 
          local random1 = math.random(1, 3)
-        -- Realizar el ataque actual
+        -- ataque actual
         if currentTurn == player then
              playerAttack(enemy)
         elseif currentTurn == elf then
@@ -244,7 +250,7 @@ end
         
 
           
-    end --space
+    end 
   
  
     
@@ -259,25 +265,27 @@ end
 
 if finish then
     
-   -- game:changeGameState('running')
-   -- if game.state.map1 then
-    --    game:changeGameState('map2')
-   -- end
+   game:changeGameState('running')
+    if game.state.map1 then
+       game:changeGameState('map2')
+   end
     mp1.ev1block:destroy()
-    --map:changeGameState("running")
-
 
  end
 
 function battleDraw()
 
-   -- love.graphics.rectangle('fill', 300, 200, 500, 500) -- FONDO
    love.graphics.draw(batallaFondo, 50, 0, nil, 0.5, 0.5)
    love.graphics.draw(batallaFondo, 0, 50, nil, 0.5, 0.5)
    love.graphics.draw(batallaFondo, 200, 50, nil, 0.5, 0.5)
    love.graphics.draw(batallaFondo, 0, 0, nil, 0.5, 0.5)
 
    love.graphics.draw(batallaFondo, 25, 0, nil, 0.5, 0.5)
+   love.graphics.draw(drakkanBatalla, 80, 130, nil, 0.5, 0.5)
+   love.graphics.draw(connorBatalla, 150, 210, nil, 0.5, 0.5)
+   love.graphics.draw(elfBatalla, 80, 250, nil, 0.7, 0.7)
+   love.graphics.draw(enemigo, 485, 200, nil, 1.4, 1.4)
+
 
 
  love.graphics.print(turnTxt, 100)
@@ -292,19 +300,10 @@ function battleDraw()
  
 battle_buttons:showw(600, 420)
 
-
-
---love.graphics.print(turnTxt, 100)
-
  
 love.graphics.print(timer, 450)
 
---love.graphics.push()
---love.graphics.scale(2, 2)
---love.graphics.draw(fondoNegro, 100, 100)
 love.graphics.print(result, 290, 300, 0, 2, 2)
---love.graphics.pop()
-
 
 love.graphics.print(dragon.health .. '/120', 325, 525)
 love.graphics.print(player.health .. '/100', 85, 525)
@@ -316,9 +315,11 @@ love.graphics.rectangle('line', 70, 420, 100, 120)
 love.graphics.push('all')
  love.graphics.setColor(0, 0, 0, 1)
  love.graphics.rectangle('fill', 70, 420, 100, 20) 
+ love.graphics.rectangle('fill', 70, 420, 100, 20) 
  love.graphics.pop()
  love.graphics.rectangle('line', 70, 420, 100, 20)
  love.graphics.print("Connor", 75, 425)
+ love.graphics.print("enemigo: ", 430, 450)
 
 love.graphics.rectangle('line', 190, 420, 100, 120)
 love.graphics.push('all')
@@ -342,5 +343,4 @@ if enemy.health == 0 then
 elseif player.health == 0 then
     love.graphics.print('GAME OVER', 200)
 end
---character_buttons:showw(100, 420)
 end

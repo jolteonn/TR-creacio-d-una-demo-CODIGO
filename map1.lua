@@ -1,9 +1,7 @@
 local npcCreator = require "src/npc_creator"
 local npcAnim = require 'src/scenes'
 local mapis2 = false
---local gameState = require 'src/stateManager'
---local map = stateManager()
---local running = require 'src/running'
+
 
 gameMap2 = sti ('maps/mapa_cabana_exterior6.lua')
 gameMap3 = sti ('maps/pueblo2.lua')
@@ -23,6 +21,7 @@ world:addCollisionClass('c2')
 
 
 --WALL COLLIDERS MAP1
+
 cl = {}
 cl.pr1  = world:newRectangleCollider(442.424, 52.1212, 1307.03, 320.606)
 cl.pr2  = world:newRectangleCollider( 1093.94, 469.697, 184.848, 96.9697)
@@ -62,7 +61,7 @@ end
   pr7 = { x = 110, y = 0 },  -- LIMITE IZQUIERDA 
   pr8 = { x = 1050, y = 0 },  -- LIMITE ARRIBA
   pr9 = { x = 900, y = 1950 } --LIMITE ABAJO
- -- door2 = { x = 900, y = 1960 }
+
 }
 
 
@@ -83,14 +82,10 @@ mp3cl = {
   pr2 = { x = 326, y = 565 },
   pr3 = { x = 106, y = 678 },
   pr4 = { x = 110, y = 900 },
- -- pr5 = { x = 302, y = 936 },
   pr6 = { x = 820, y = 720},
   pr7 = { x = 338, y = 1100 },
   pr8 = { x = 495, y = 950 },
   pr9 = { x = 540, y = 865 },
- -- pr10 = { x = 588.5, y = 754.5 },
- -- pr11 = { x = 587, y = 756.5 },
-  --pr12 = { x = 577, y = 753.167 }
 
 }
 
@@ -103,8 +98,7 @@ cl3.pr6 = world:newRectangleCollider(mp3cl.pr6.x, mp3cl.pr6.y,  562, 100)
 cl3.pr7 = world:newRectangleCollider(mp3cl.pr7.x, mp3cl.pr7.y,  30, 354)
 cl3.pr8 = world:newRectangleCollider(mp3cl.pr8.x, mp3cl.pr8.y,  220, 18)
 cl3.pr9 = world:newRectangleCollider(mp3cl.pr9.x, mp3cl.pr9.y,  54, 88)
---cl3.pr10 = world:newRectangleCollider(mp3cl.pr10.x, mp3cl.pr10.y,  724, 82)
---cl3.pr11 = world:newRectangleCollider(mp3cl.pr11.x, mp3cl.pr11.y,  32, 70)
+
 
 for key, collider in pairs(cl) do
   collider:setType('static')
@@ -123,13 +117,14 @@ function mapUpdate(dt)
 end
 
 
+
+
+
 function drawMap1()
   love.graphics.clear()
 
---  gameMap2:drawLayer(gameMap2.layers['walls'])
   gameMap2:drawLayer(gameMap2.layers["grass"])
   gameMap2:drawLayer(gameMap2.layers["Cabana"])
-  --love.graphics.draw(drakkan, 900, 1600)
   animDraw()
   gameMap2:drawLayer(gameMap2.layers["water"])
   gameMap2:drawLayer(gameMap2.layers["trees"])
@@ -138,12 +133,6 @@ function drawMap1()
   love.graphics.print("this is position 100", 100, 100)
   love.graphics.draw(portal, 10, 0)
 end
-
---collider34 = world:newRectangleCollider(100, 100, 100, 100)
-
-
- -- collider34:destroy()
---end
 
 
 function drawMap2()
@@ -157,7 +146,6 @@ function drawMap2()
    love.graphics.draw(casa, 450, 380)
    love.graphics.draw(casa, 1050, 380)
    love.graphics.draw(casa, 1300, 380)
-   --love.graphics.draw(tienda, 1200, 380)
    love.graphics.draw(tienda, 820, 550, nil, 0.08, 0.08)
    love.graphics.draw(tienda, 1010, 550, nil, 0.08, 0.08)
    love.graphics.draw(panaderia, 800, 1200)
@@ -166,7 +154,7 @@ function drawMap2()
    love.graphics.draw(casa, 1100, 1200)
    love.graphics.draw(casa, 1300, 1200)
 
-  -- prueba.coll:draw()
+
 end
 
 function drawMap3()

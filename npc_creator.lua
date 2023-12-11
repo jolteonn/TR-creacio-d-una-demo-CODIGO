@@ -6,7 +6,6 @@ local tiempoEsperaDown = 0.2
 local tiempoAnteriorUp = 0
 local tiempoEsperaUp = 0.2
 
-
 local npc = {
     --name = nil,
     sprite = nil,
@@ -31,205 +30,192 @@ function npc.new(name, sprite, dialog, text, atk, def, speed)
     return instance
 end
 
+
 dialog = {
-    box = nil,
-    name = nil,
-    text0 = nil,
-    text = nil,
-    text2 = nil,
-    text3 = nil,
-    text4 = nil,
-    text5 = nil,
-    text6 = nil,
+  box = nil,
+  name = nil,
+  text0 = nil,
+  text = nil,
+  nameA = nil,
+  text2 = nil,
+  text3 = nil,
+  text4 = nil,
+  text5 = nil,
+  text6 = nil,
 }
 
 dialog.__index = dialog
 
-function dialog.new(box, name, text, text2, text3, moreText, name2, text4, text5, text6)
-    local instance = setmetatable({}, dialog)
-    instance.box = box
-    instance.name = name
-    instance.text0 = text0
-    instance.text = text
-    instance.text2 = text2
-    instance.text3 = text3
-    instance.moreText = moreText
-    instance.name2 = name2
-    instance.text4 = text4
-    instance.text5 = text5
-    instance.text6 = text6
-    instance.text7 = text7
+function dialog.new(box, name, text, text2,  text3, moreText, name2, text4, text5, text6)
+  local instance = setmetatable({}, dialog)
+  instance.box = box
+  instance.name = name
+  instance.text0 = text0
+  instance.text = text
+  instance.text2 = text2
+  instance.text3 = text3
+  instance.moreText = moreText
+  instance.name2 = name2
+  instance.text4 = text4
+  instance.text5 = text5
+  instance.text6 = text6
+  instance.text7 = text7
 
-    return instance
+  return instance
 end
 
- local clicks = 0
+local clicks = 0
 
- function dialog:show(x, y)
-    love.graphics.print(clicks)
-    love.graphics.draw(self.box, x, y)
-    --love.graphics.setFont(font)
-    love.graphics.push("all")  
-    love.graphics.setColor(0, 0, 0, 255)
-    love.graphics.print(self.text, 90, 486)
-    love.graphics.print(self.name, 110, 455)
-    love.graphics.pop()
-   
- end
 
+
+function dialog:show(x, y)
+  love.graphics.print(clicks)
+  love.graphics.draw(self.box, x, y)
+  love.graphics.push("all")  
+  love.graphics.setColor(0, 0, 0, 255)
+  love.graphics.print(self.text, 90, 486)
+  love.graphics.print(self.name, 110, 455)
+  love.graphics.pop()
  
- function dialog:updateText(name, text, text2, text3, name2, text4, name3, text5, text6)
-  self.name = name
-  self.text0 = text
-  self.text = text
-  self.text2 = text2
-  self.text3 = text3
-  self.moreText = moreText
-  self.name2 = name2
-  self.text4 = text4
-  self.name3 = name3
-  self.text5 = text5
-  self.text6 = text6
-  self.text7 = text7
+end
+
+
+function dialog:updateText(name, text, text2, text3, name2, text4, name3, text5, text6)
+self.name = name
+self.text0 = text
+self.text = text
+self.text2 = text2
+self.text3 = text3
+self.moreText = moreText
+self.name2 = name2
+self.text4 = text4
+self.name3 = name3
+self.text5 = text5
+self.text6 = text6
+self.text7 = text7
 end
 
 
 
 function dialog:update()
 local show0 = true
- local show1 = false
- local show2 = false
- local show3 = false
+local show1 = false
+local show2 = false
+local show3 = false
 
- function dialogFinish1()
-  dialogEvent = false
-  openDialog = false
-  onScreen = false
-  --moreText = false
-  clicks = 0
-  show1 = false
-  show2 = false
-  show3 = false
-  dialogFinish = true
- end
+function dialogFinish1()
+dialogEvent = false
+openDialog = false
+onScreen = false
+--moreText = false
+clicks = 0
+show1 = false
+show2 = false
+show3 = false
+dialogFinish = true
+end
 
+d1 = false
+d2 = false
 
-    function love.keypressed(key, scancode, isrepeat)
+  function love.keypressed(key, scancode, isrepeat)
 
-     if dialogEvent then
-       if key == 'e' then
-         openDialog = true
-         clicks = clicks + 1
-       end
-
-  if game.state.running then 
-    if key == 'space' then
-      clicks = clicks + 1
-
+   if dialogEvent then
+     if key == 'e' then
+       openDialog = true
+       clicks = clicks + 1
      end
-    end
-      
 
-    if openDialog then
-        onScreen = true
+if game.state.running then 
+  if key == 'space' then
+    clicks = clicks + 1
+
+   end
+  end
+    
+
+  if openDialog then
+      onScreen = true
+  end
+    if clicks == 1 then
+      show0 = true
     end
-      if clicks == 1 then
-        show0 = true
+    if show0 then
+      self.text0 = self.text
+      if self.text2 == nil then
+        dialogFinish1()
       end
-      if show0 then
-        self.text0 = self.text
+    end
+    --if moreName == false then
+    if clicks == 2 then
+      show1 = false
+      if show1 == false then
+          self.text = self.text2
+          d1 = true
         if self.text2 == nil then
           dialogFinish1()
         end
-      end
-      if clicks == 2 then
-        show1 = false
-        if show1 == false then
-            self.text = self.text2
-          if self.text2 == nil then
-            dialogFinish1()
-          end
-        end
-      end
-      if clicks == 3 then
-        self.text = self.text3
-        if self.text3 == nil then
-          dialogFinish1()
-        end
+    --  end
     end
-
-  if moreText then
-    if clicks == 4 then
-    
-          self.name = self.name2
-          self.text = self.text4
-   end
-  
-  if clicks == 5 then
-          self.text = self.text5
-      if self.text5 == nil then
-         dialogFinish1()
-       end
-       if self.name3 == nil then   --ULTIMO CAMBIO 13/11
-        self.name = self.name2
-       elseif self.name3 ~= nil then
-        self.name = self.name3
-       end
-  end
-  
- if clicks == 6 then
-    self.text = self.text6
-    if self.text6 == nil then
-      dialogFinish1()
     end
-  end 
-   if clicks == 7 then
-     dialogFinish1()
-  end
-
-     elseif moreText == false then
-      if clicks == 4 then
+    if clicks == 3 then
+      d2 = true
+      self.text = self.text3
+      if self.text3 == nil then
         dialogFinish1()
       end
-      
-    end 
-  --end
-      --[[  if clicks == 7 then
-          dialogEvent = false
-          openDialog = false
-          onScreen = false
-          --moreText = false
-          clicks = 0
-          show1 = false
-          show2 = false
-          show3 = false
-          dialogFinish = true
-        end
-        
-        
-      elseif moreText == false and clicks == 4 then
-     -- if self.moreText == false then
-        dialogEvent = false
-        openDialog = false
-        onScreen = false
-        --moreText = false
-        clicks = 0
-        show1 = false
-        show2 = false
-        show3 = false
-        dialogFinish = true
-     end
-    end]]
+  end
 
- -- ayer
+ -- if moreName then
+    if clicks == 2 then
+     -- self.name = self.nameA
+      self.text = self.text2
+      end
+ --   end
 
-
-end
-
-
-end
-end
+if moreText then
+  if clicks == 2 then
   
+        self.name = self.name2
+        self.text = self.text4
+ end
+
+if clicks == 5 then
+        self.text = self.text5
+    if self.text5 == nil then
+       dialogFinish1()
+     end
+     if self.name3 == nil then   --ULTIMO CAMBIO 13/11
+      self.name = self.name2
+     elseif self.name3 ~= nil then
+      self.name = self.name3
+     end
+end
+
+if clicks == 6 then
+  self.text = self.text6
+  if self.text6 == nil then
+    dialogFinish1()
+  end
+end 
+ if clicks == 7 then
+   dialogFinish1()
+end
+
+   elseif moreText == false then
+    if clicks == 4 then
+      dialogFinish1()
+    end
+    
+  end 
+
+
+
+end
+
+
+end
+end
   
 function npc:draw(x, y)
 
@@ -467,10 +453,7 @@ end
 
 
 function collider:draw()
- -- if show then
- --if self.showC then
+
     love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
- --end
- -- end
- -- if self.x = 
+ 
 end

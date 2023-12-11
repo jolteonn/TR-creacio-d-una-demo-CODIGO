@@ -1,18 +1,14 @@
 local anim8 = require 'libraries/anim8/anim8'
 local cll = require 'src/npc_creator'
---local coll =
 
 player = {}
     player.x = 300 
     player.y = 400
     player.width = 40
     player.height = 70
---eliminar
     player.collider = world:newBSGRectangleCollider(player.x, player.y, player.width, player.height, 12)
-    player.collider:setFixedRotation(true)
-    
+    player.collider:setFixedRotation(true) 
     player.speed = 200
-
     -- s'importa el spritesheet del personatge
     player.sprite = love.graphics.newImage('assets/player-sheet.png')
     -- S'estableix el tamany de cada fotograma (12x18)
