@@ -59,16 +59,10 @@ end
 end
 
 player.collider:setLinearVelocity(vx, vy)
-
 player.x = player.collider:getX()
 player.y = player.collider:getY() 
-
-
 player.anim:update(dt) 
-
 end
-
-
 
 function playerdraw()
     player.anim:draw(player.sprite, player.x, player.y, nil, 4.2, nil, 6, 9 )

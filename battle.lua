@@ -34,7 +34,6 @@ battle_buttons = button.row("menu", player2, "atque 2", "ataque 3")
 local textbat = 'hello'
 character_select = true
  
-
  
 local player = { name = "Player", health = 100, attack = 10 }
 local elf = { name = "Elf", health = 70, attack = 8 }
@@ -118,7 +117,6 @@ elseif  currentTurn == dragon then
 end
 ---------------
 
-   
   if alive then
     local tiempoActual = love.timer.getTime()
     if love.keyboard.isDown("space") then
@@ -142,14 +140,11 @@ end
                 if game.state.map1 then
                    game:changeGameState('map2')
                 end
-           
             end
         elseif currentTurn == dragon then
             dragonAttack(player)
         end
 
-        
-      
         if currentTurn == elf and arrow1 then
             battleDialog = 'Isildur utilizo ataque1'
         end
@@ -186,12 +181,8 @@ end
             battleDialog = 'enemigo ataco a Drakkan'
         end
        end
-
         changeTurn()
     end
-
- 
-
     tiempoAnteriorUp = tiempoActual
     end
 end
@@ -246,21 +237,11 @@ end
             dragon.health = 0
         elseif elf.health < 0 then
             elf.health = 0
-        end 
-        
-
-          
-    end 
-  
- 
-    
+        end          
+    end   
 end
 tiempoAnteriorUp = tiempoActual
-
-
 end
-
-
 
 
 if finish then
@@ -270,7 +251,6 @@ if finish then
        game:changeGameState('map2')
    end
     mp1.ev1block:destroy()
-
  end
 
 function battleDraw()
@@ -285,7 +265,6 @@ function battleDraw()
    love.graphics.draw(connorBatalla, 150, 210, nil, 0.5, 0.5)
    love.graphics.draw(elfBatalla, 80, 250, nil, 0.7, 0.7)
    love.graphics.draw(enemigo, 485, 200, nil, 1.4, 1.4)
-
 
 
  love.graphics.print(turnTxt, 100)

@@ -205,27 +205,17 @@ end
    elseif moreText == false then
     if clicks == 4 then
       dialogFinish1()
-    end
-    
+     end   
   end 
-
-
-
 end
-
-
 end
 end
   
-function npc:draw(x, y)
-
-   
+function npc:draw(x, y)  
     love.graphics.print(self.atk, 0, 0)
     love.graphics.print(self.def, 0, 15)
     love.graphics.print(self.speed, 0, 32)
-    love.graphics.draw(self.sprite, x, y)
-
-    
+    love.graphics.draw(self.sprite, x, y)  
 end
 
 button = {
@@ -235,12 +225,9 @@ button = {
   button2 = nil,
   button3 = nil,
   clicked = false,
-  
-  
 }
 
 button.__index = button
-
 
 function button.row(type, button1, button2, button3, button1func, button2func, button3func)
   local instance = setmetatable({}, button)
@@ -257,12 +244,9 @@ function button.row(type, button1, button2, button3, button1func, button2func, b
   return instance
 end
 
-
-
 function button:showw(x, y)
 
   local tiempoActual = love.timer.getTime()
-
 
   local img = nil
   local img2 = nil
@@ -287,9 +271,7 @@ function button:showw(x, y)
      arrow.y = (y + 8) --308
      arrow.sprite = love.graphics.newImage('assets/arrow_b2.png')
 
-
      love.graphics.print(self.button1, (x + 20), (y + 10))
-
 
   function drawArrow1()
     arrow1 = true
@@ -336,8 +318,6 @@ end
       draw2 = true
         self.in1 = 2
 
-
-
     elseif self.in1 == 3 and draw2 then
 
           draw2 = false
@@ -349,11 +329,8 @@ end
           draw3 = false
           draw2 = true
             self.in1 = 2
-        end
-           
+        end    
     end
-
-
     
     if self.in1 == 2 and draw2 then
       drawArrow2()
@@ -396,7 +373,6 @@ collider = {
   y = nil,
   w = nil,
   h = nil,
-  --showC = false,
 
 }
 
@@ -408,11 +384,6 @@ function collider.new(x, y, w, h)
   instance.y = y
   instance.w = w
   instance.h = h
- -- instance.showC = showC
-
-
- -- instance.text3 = text3
-
   return instance
 end
 

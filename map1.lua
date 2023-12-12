@@ -2,26 +2,26 @@ local npcCreator = require "src/npc_creator"
 local npcAnim = require 'src/scenes'
 local mapis2 = false
 
-
 gameMap2 = sti ('maps/mapa_cabana_exterior6.lua')
 gameMap3 = sti ('maps/pueblo2.lua')
 gameMap4 = sti ('maps/mapForest1.lua')
-
-
 
 local casa = love.graphics.newImage('assets/casa_pueblo.png')
 local panaderia = love.graphics.newImage('assets/panaderia.png')
 local portal = love.graphics.newImage('assets/portal.png')
 local tienda = love.graphics.newImage('assets/tiendaCuervo.png')
+local pan1 = love.graphics.newImage('assets/pan1.png')
+local pan2 = love.graphics.newImage('assets/pan2.png')
+local ratoli = love.graphics.newImage('assets/ratoli.png')
+local corvan = love.graphics.newImage('assets/corvan.png')
+local gato = love.graphics.newImage('assets/gato.png')
 
 
 world:addCollisionClass('solid')
 world:addCollisionClass('ghost', {ignores = {'solid'}})
 world:addCollisionClass('c2')
 
-
 --WALL COLLIDERS MAP1
-
 cl = {}
 cl.pr1  = world:newRectangleCollider(442.424, 52.1212, 1307.03, 320.606)
 cl.pr2  = world:newRectangleCollider( 1093.94, 469.697, 184.848, 96.9697)
@@ -48,8 +48,6 @@ cl.pr21 = world:newRectangleCollider(763.636, 684.848, 178.788, 178.788)
 for key, collider in pairs(cl) do
   collider:setType('static')
 end
-
-
 
  mp2cl = {
   pr1 = { x = 600, y = 580 },
@@ -117,9 +115,6 @@ function mapUpdate(dt)
 end
 
 
-
-
-
 function drawMap1()
   love.graphics.clear()
 
@@ -146,15 +141,18 @@ function drawMap2()
    love.graphics.draw(casa, 450, 380)
    love.graphics.draw(casa, 1050, 380)
    love.graphics.draw(casa, 1300, 380)
-   love.graphics.draw(tienda, 820, 550, nil, 0.08, 0.08)
-   love.graphics.draw(tienda, 1010, 550, nil, 0.08, 0.08)
+   love.graphics.draw(tienda, 820, 550, nil, 0.087, 0.087)
+   love.graphics.draw(ratoli, 1020, 615, nil, 0.3, 0.3)
+   love.graphics.draw(tienda, 1010, 550, nil, 0.087, 0.087)
+   love.graphics.draw(corvan, 800, 615, nil, 0.3, 0.3)
    love.graphics.draw(panaderia, 800, 1200)
+   love.graphics.draw(pan1, 580, 1500, nil, 0.3, 0.3)
+   love.graphics.draw(pan2, 650, 1485, nil, 0.27, 0.27)
    love.graphics.draw(casa, 300, 1200)
+   love.graphics.draw(gato, 1390, 975, nil, 0.3, 0.3)
    love.graphics.draw(casa, 500, 1200)
    love.graphics.draw(casa, 1100, 1200)
    love.graphics.draw(casa, 1300, 1200)
-
-
 end
 
 function drawMap3()

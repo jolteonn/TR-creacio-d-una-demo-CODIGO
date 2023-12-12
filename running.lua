@@ -90,7 +90,7 @@ local bird_name = "Corvan"
 local ev1_name = 'Isildur'
 local ev1_d1 = 'Oye, Drakkar has descubierto algo de las desapariciones \n\n de los niños?'
 local ev1_d2 = 'Ni idea estuve investigando el bosque de Vilhex, pero solo  \n\n había rastros que desaparecen a los pocos segundos.'
-local ev1_d3 = 'pue na'
+local ev1_d3 = '¿Tu heremana tambien ha desaparecido? Ven con nosotros al \n \n pueblo  a investigar, nosotros tambien estamos buscando a \n \nniños  que han desaparecido recientemente '
 local ev1_m = 'true'
 local ev1_d4 = 'hola texto 4'
 
@@ -126,8 +126,8 @@ mp2 = {}
   mp2.door2 = world:newRectangleCollider(mp2op.door2.x, mp2op.door2.y, 400, 50)
   mp2.pajaro = world:newRectangleCollider(800, 1300, 36, 60)
   mp2.npc4 = world:newRectangleCollider(800, 1300, 36, 60)
-  mp2.ratoli = world:newRectangleCollider(800, 1500, 36, 60)
-  mp2.npc5 = world:newRectangleCollider(700, 1300, 60, 30)
+  mp2.ratoli = world:newRectangleCollider(860, 1500, 36, 60)
+  mp2.npc5 = world:newRectangleCollider(800, 1300, 30, 60)
 
 
   mp2.pajaro:setCollisionClass('bird')
@@ -236,6 +236,11 @@ if cam.y > map2H - h / 2 then
       cl3.pr7:setPosition(xc + mp3cl.pr7.x, xc + mp3cl.pr7.y)
       cl3.pr8:setPosition(xc + mp3cl.pr8.x, xc + mp3cl.pr8.y)
       cl3.pr9:setPosition(xc + mp3cl.pr9.x, xc + mp3cl.pr9.y)
+      mp2.pajaro:setPosition(xc + 800, 1300, 36, 60)
+      mp2.npc4:setPosition(xc + 800, 1300, 36, 60)
+      mp2.ratoli:setPosition(xc + 800, 1500, 36, 60)
+      mp2.npc5:setPosition(xc + 700, 1300, 60, 30)
+    
 
     end
 
@@ -301,7 +306,7 @@ if player.collider:enter('event1') then
   moreText = true
   dialogEvent = true
   onScreen = true
-  dialog1:updateText(ev1_name, ev1_d1, ev1_d2, ev1_d3,'Drakkan', ev1_d2, 'duennde', 'queueueu')
+  dialog1:updateText(ev1_name, ev1_d1, ev1_d2, ev1_d3,'Drakkan', ev1_d2, 'Isildur', '¡Cuidado, ese monstruo viene a atacarnos!')
 if d2 then
   faceBack = true
 end

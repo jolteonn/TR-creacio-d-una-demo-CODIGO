@@ -47,37 +47,23 @@ drakkan.anim = drakkan.animations.left
 hermana = {}
 hermana.x = 345
 hermana.y = 980
---hermana.speed = 200
 hermana.image = love.graphics.newImage('assets/HermanaProtagonista2.png')
---[[hermana.grid = anim8.newGrid(120, 180, hermana.image:getWidth(), hermana.image:getHeight())
-hermana.animations = {} 
-hermana.animations.down = anim8.newAnimation( hermana.grid('1-4', 1), 0.2)
-hermana.animations.left = anim8.newAnimation( hermana.grid('1-4', 2), 0.2)
-
-hermana.anim = hermana.animations.down]]
-
 
 local ismoving = false
 local moving = false
 local timer = 0
-
 local speedWalk = 1.9
 local doorRec = 10
 local exc = 900
 local casax = 50
 local habx = 800
-
 local movedr = false
 local moveelf = false
-
 local tshow = false
-
-
 
 scene1Finish = false
 
 local direction = 'quieto'
-
 local izquierda = false
 local derecha = false
 local abajo = false
@@ -103,18 +89,11 @@ end
 
 function moveArriba(p)
     arriba = true
-  --  if movedr == false then
   if arriba then
     sprite.y = sprite.y - speedWalk
     sprite.anim = sprite.animations.up
     ismoving = true
     end
-   -- if movedr then
-    --drakkan.y = drakkan.y - speedWalk
-    --drakkan.anim = drakkan.animations.up
-    
-   -- ismoving = true
-   -- end
 end
 
 function moveAbajo(p)
@@ -135,9 +114,6 @@ function quietoParao(p)
 end
 
 
-
-
-
 local temp = 0
 
 function transition()
@@ -149,26 +125,18 @@ end
 local temp2 = 0
 
 function transitionPortal()
-   -- temp = 0
     local trans = 0.5
-    love.graphics.setColor(1, 1, 1, trans - temp2 )--+ temp)
+    love.graphics.setColor(1, 1, 1, trans - temp2 )
     love.graphics.draw(negro2, 0, 0)
-
 end
 
  temp3 = 0
 
 function transitionPortal2()
-   -- temp = 0
     local trans = 0.08
-    love.graphics.setColor(1, 1, 1, trans + temp3 )--+ temp)
+    love.graphics.setColor(1, 1, 1, trans + temp3 )
     love.graphics.draw(negro2, 0, 0)
-
 end
---return trans 
-
-    
-    --love.graphics.rectangle('fill', 0, 0, 800, 600)
 
 transtime = 0.009
 function scene1Update(dt)
@@ -225,8 +193,6 @@ end
 if direction == 'quietoParao' then
     quietoParao()
 end
-
-  
 
 if timer >= 15 then
     direction = 'arriba'
@@ -295,15 +261,11 @@ if timer >= 22.4 then
        direction = 'arriba'
         speedWalk = 3
        tshow = true
-       -- transitionPortal()
-      --  transitionPortal()
     end
      
     if timer > 38.9 then
         scene1Finish = true
     end
-   
-   -- temp = temp + 0.5
 
 end
 
@@ -352,24 +314,12 @@ end
     love.graphics.print(timer)
     love.graphics.print(direction, 200)
     sprite.anim:draw(sprite.image, sprite.x, sprite.y, nil, 4.2, nil, 6, 9 )
-   --[[ love.graphics.push("all")
-    love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.rectangle('fill', 450 , doorRec, 54, 105)
-    love.graphics.pop()]]
-
     love.graphics.draw(hermana.image, hermana.x, hermana.y, nil, 0.5, 0.5 )
-
     love.graphics.draw(exclamation, excx, exc, nil, 0.7, 0.7)
    
     if onScreen then
         dialogScene1:show(50, 450)
       end
-
-     --[[] if tshow then
-         transitionPortal()
-
-        --love.graphics.draw(negro, 0, 0, nil, 1.8, 1.8)
-     end]]
       
 end
 
@@ -379,11 +329,6 @@ function animDraw()
     if ismoving == false then
         drakkan.anim:gotoFrame(2)
     end
-
-   --[[ if drakkanArriba then
-        direction = 'arriba'
-    end]]
-
     drakkan.anim:draw(drakkan.image, drakkan.x, drakkan.y, nil, 4.2, nil, 6, 9 )
 end
 
